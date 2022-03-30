@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AndroidProject</string>
     <string name="title_activity_spencer__favourites">Spencer_Favourites</string>
@@ -12,11 +13,11 @@
     <string name="hockey">NHL App</string>
     <string name="nutrition">Food/Nutrition App</string>
     <string name="home">Main Menu!</string>
-    <string name="recipeTag">add Tag</string>
-    <string name="tag_stat">Tag Stat</string>
-    <string name="delete_tag">Delete Tag</string>
+
+
+
     <string name="nutrition_app_name">Food Nutrition Database</string>
-    <string name="foodTag">Tag: </string>
+
     <string name="btn_search">Search</string>
     <string name="btn_add">Add</string>
     <string name="btn_favourite">Favourite</string>
@@ -44,16 +45,16 @@
     <string name="total_cal">Total Calories: </string>
     <string name="ave_cal">Average Calories: </string>
     <string name="tagEditTxt">Add a tag here</string>
-
+    <string name="foodTag">Tag: </string>
     <string name="your_favourite_list">My Favourite List</string>
     <string name="delete_btn">Delete</string>
     <string name="search_hint">Enter the name of the food</string>
-
-
+    <string name="recipeTag">add Tag</string>
+    <string name="delete_tag">Delete Tag</string>
     <string name="search_btn">Search</string>
     <string name="add_btn">Add</string>
     <string name="del_btn">Delete</string>
-
+    <string name="tag_stat">Tag Stat</string>
     <string name="email_hint">Enter your e-mail address</string>
     <string name="pass_hint">Enter your password</string>
     <string name="login_button">Login!</string>
