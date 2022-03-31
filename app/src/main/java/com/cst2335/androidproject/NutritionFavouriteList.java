@@ -1,13 +1,10 @@
 package com.cst2335.androidproject;
-
-import static com.cst2335.androidproject.RecipeDatabaseHelper.NUTRITION_FIELDS;
-import static com.cst2335.androidproject.RecipeDatabaseHelper.TABLE_NAME;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,17 +12,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.cst2335.androidproject.R;
-
 import java.util.ArrayList;
 
-public class RecipeFavouriteList extends AppCompatActivity {
+import static com.cst2335.androidproject.NutritionDatabaseHelper.NUTRITION_FIELDS;
+import static com.cst2335.androidproject.NutritionDatabaseHelper.TABLE_NAME;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+/**
+ * This activity is to store the searched food items.
+ */
+public class NutritionFavouriteList extends AppCompatActivity {
     private static final String TAG = "NutritionFavouriteList";
-    private RecipeDatabaseHelper recipeDatabaseHelper;
+    private NutritionDatabaseHelper foodDatabaseHelper;
     private ListView fListView;
     private SQLiteDatabase sqLiteDatabase;
     private ArrayList<String> listData;
@@ -41,7 +40,7 @@ public class RecipeFavouriteList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipefavlist);
+        setContentView(R.layout.nutrition_activity_favourite_list);
         fListView = (ListView) findViewById(R.id.favListView);
         populateListView();
     }
@@ -51,8 +50,8 @@ public class RecipeFavouriteList extends AppCompatActivity {
      */
     public void populateListView() {
         Log.d(TAG, "populateListView: Displaying data in the ListView ");
-        recipeDatabaseHelper = new RecipeDatabaseHelper(this);
-        Cursor data = recipeDatabaseHelper.getData();
+        foodDatabaseHelper = new NutritionDatabaseHelper(this);
+        Cursor data = foodDatabaseHelper.getData();
         listData = new ArrayList<>();
         while (data.moveToNext()) {
             listData.add(data.getString(0)); //add the items that store in database to the array adapter
@@ -65,9 +64,9 @@ public class RecipeFavouriteList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 selectedName = adapterView.getItemAtPosition(position).toString(); //to retrieve the name of the food that has been entered.
-                recipeDatabaseHelper = new RecipeDatabaseHelper(getApplicationContext());
-                sqLiteDatabase = recipeDatabaseHelper.getReadableDatabase();
-                cursor = recipeDatabaseHelper.getSpecificFood(selectedName, sqLiteDatabase);//to get the data from the database
+                foodDatabaseHelper = new NutritionDatabaseHelper(getApplicationContext());
+                sqLiteDatabase = foodDatabaseHelper.getReadableDatabase();
+                cursor = foodDatabaseHelper.getSpecificFood(selectedName, sqLiteDatabase);//to get the data from the database
                 double cal = 0;
                 double fat = 0;
 
@@ -83,26 +82,26 @@ public class RecipeFavouriteList extends AppCompatActivity {
 
                 //listview on tablet
                 if (findViewById(R.id.frameLayout) != null) {
-                    RecipeFragment recipeFragment = new RecipeFragment();
+                    NutritionFragment nutritionFragment = new NutritionFragment();
                     Bundle bundle = new Bundle(); //save the data in the bundle for later retrieval.
                     bundle.putString("id", selectedName);
                     bundle.putString("calories", calData);
                     bundle.putString("fat", fatData);
                     bundle.putBoolean("isTablet", true);  //go to the fragment if it is a tablet.
-                    recipeFragment.setArguments(bundle);
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.frameLayout, recipeFragment);
+                    nutritionFragment.setArguments(bundle);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.frameLayout, nutritionFragment);
                     ft.addToBackStack("A string");
                     ft.commit();
                     Log.i(TAG, "Run on Tablet");
 
                 } else {
                     //go to the new detailed activity if it is a phone.
-                    Intent intent = new Intent(RecipeFavouriteList.this, RecipeDetailActivity.class);
+                    Intent intent = new Intent(NutritionFavouriteList.this, NutritionDetailActivity.class);
                     intent.putExtra("id", selectedName);
                     intent.putExtra("calories", calData);
                     intent.putExtra("fat", fatData);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                     Log.i(TAG, "Run on phone");
                 }
 
@@ -125,11 +124,11 @@ public class RecipeFavouriteList extends AppCompatActivity {
     @SuppressLint("Range")
     public void query() {
         listData.clear();
-        cursor = recipeDatabaseHelper.getData();
+        cursor = foodDatabaseHelper.getData();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                Log.i(TAG, "SQL MESSAGE:" + cursor.getString((cursor.getColumnIndex(RecipeDatabaseHelper.KEY_ID))));
-                listData.add(cursor.getString(cursor.getColumnIndex(recipeDatabaseHelper.KEY_ID)));
+                Log.i(TAG, "SQL MESSAGE:" + cursor.getString((cursor.getColumnIndex(NutritionDatabaseHelper.KEY_ID))));
+                listData.add(cursor.getString(cursor.getColumnIndex(foodDatabaseHelper.KEY_ID)));
                 cursor.moveToNext();
             }
             adapter.notifyDataSetChanged();
@@ -146,7 +145,7 @@ public class RecipeFavouriteList extends AppCompatActivity {
     @SuppressLint("Range")
     public void notifyChange() {
         fListView.setAdapter(adapter);
-        sqLiteDatabase = recipeDatabaseHelper.getWritableDatabase();
+        sqLiteDatabase = foodDatabaseHelper.getWritableDatabase();
 
         cursor = sqLiteDatabase.query(false, TABLE_NAME, NUTRITION_FIELDS, null, null, null, null, null, null);
         int numColumns = cursor.getColumnCount();
@@ -154,15 +153,15 @@ public class RecipeFavouriteList extends AppCompatActivity {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Log.i(TAG, "SQL MESSAGE: " + cursor.getString(cursor.getColumnIndex(recipeDatabaseHelper.KEY_ID)));
-            listData.add(cursor.getString(cursor.getColumnIndex(recipeDatabaseHelper.KEY_ID)));
+            Log.i(TAG, "SQL MESSAGE: " + cursor.getString(cursor.getColumnIndex(foodDatabaseHelper.KEY_ID)));
+            listData.add(cursor.getString(cursor.getColumnIndex(foodDatabaseHelper.KEY_ID)));
             cursor.moveToNext();
         }
         Log.i(TAG, "Cursor's column count = " + numColumns);
 
         cursor.moveToFirst();
         for (int i = 0; i < numResult; i++) {
-            Log.i(TAG, "The " + i + " row is " + cursor.getString(cursor.getColumnIndex(recipeDatabaseHelper.KEY_ID)));
+            Log.i(TAG, "The " + i + " row is " + cursor.getString(cursor.getColumnIndex(foodDatabaseHelper.KEY_ID)));
             cursor.moveToNext();
         }
     }
@@ -179,8 +178,8 @@ public class RecipeFavouriteList extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 1) {
             //sqLiteDatabase.delete(NutritionDatabaseHelper.TABLE_NAME, NutritionDatabaseHelper.KEY_ID + " = ?", new String[] {selectedName}) ;
-            sqLiteDatabase = recipeDatabaseHelper.getWritableDatabase();
-            recipeDatabaseHelper.delFood(selectedName, sqLiteDatabase);
+            sqLiteDatabase = foodDatabaseHelper.getWritableDatabase();
+            foodDatabaseHelper.delFood(selectedName, sqLiteDatabase);
             notifyChange();
 
 
@@ -194,7 +193,7 @@ public class RecipeFavouriteList extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-        recipeDatabaseHelper.openDatabase();
+        foodDatabaseHelper.openDatabase();
         query();
 
         Log.i(TAG, "In onStart()");
@@ -212,8 +211,9 @@ public class RecipeFavouriteList extends AppCompatActivity {
 
     protected void onDestroy() {
         super.onDestroy();
-        recipeDatabaseHelper.closeDatabase();
+        foodDatabaseHelper.closeDatabase();
         Log.i(TAG, "In onDestroy()");
     }
 
 }
+

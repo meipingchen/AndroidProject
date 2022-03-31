@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">AndroidProject</string>
+
+    <string name="app_name">final-project</string>
     <string name="title_activity_spencer__favourites">Spencer_Favourites</string>
     <string name="save">Save</string>
     <string name="type">Type here!</string>
@@ -12,11 +13,11 @@
     <string name="hockey">NHL App</string>
     <string name="nutrition">Food/Nutrition App</string>
     <string name="home">Main Menu!</string>
-    <string name="recipeTag">add Tag</string>
-    <string name="tag_stat">Tag Stat</string>
-    <string name="delete_tag">Delete Tag</string>
+
+
+
     <string name="nutrition_app_name">Food Nutrition Database</string>
-    <string name="foodTag">Tag: </string>
+
     <string name="btn_search">Search</string>
     <string name="btn_add">Add</string>
     <string name="btn_favourite">Favourite</string>
@@ -43,7 +44,7 @@
     <string name="min_cal">Min Calories: </string>
     <string name="total_cal">Total Calories: </string>
     <string name="ave_cal">Average Calories: </string>
-    <string name="tagEditTxt">Add a tag here</string>
+
 
     <string name="your_favourite_list">My Favourite List</string>
     <string name="delete_btn">Delete</string>
@@ -70,4 +71,47 @@
 
 
     <string name="hello">Hello World</string>
+
+    <!-- StartActivity Menu -->
+    <string name="octranspo_button">OCTranspo</string>
+    <string name="nutrition_button">Nutrition</string>
+    <string name="news_button">News</string>
+    <string name="movie_button">Movies</string>
+    <string name="hockey_button">Hockey</string>
+
+
+    <!--  BUS APP STRINGS-->
+    <string name="bus_avgadjustedtime">Average Adjusted Time: </string>
+
+    <!-- NHL bottom navigation menu labels -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_teams">Teams</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_favorite">Favorites</string>
+    <string name="title_help">Help</string>
+    <string name="away_team">Ottawa</string>
+
+    <string name="bus_addButton">Add</string>
+    <string name="bus_deleteButton">Delete</string>
+    <string name="bus_helpButton">Help</string>
+    <string name="busBackButton">Back</string>
+    <string name="bus_badinput">Must be number</string>
+    <string name="bus_stop_w_number">Stop with number </string>
+    <string name="bus_stop_not_found"> was not found on the OC database.</string>
+    <string name="bus_route">Route </string>
+    <string name="bus_direction">Direction:</string>
+    <string name="bus_starttime">Start Time: </string>
+    <string name="bus_adjustedtime">Adjusted Time: </string>
+    <string name="bus_latlong">Latitude/Longitude:</string>
+    <string name="bus_gpsspeed">GPS Speed: </string>
+    <string name="bus_infounavailable">Unavailable</string>
+    <string name="bus_deletestationbutton">Delete</string>
+    <string name="nutritionTag">Add Tag</string>
+    <string name="tagEditTxt">Add a tag here</string>
+    <string name="foodTag">Tag: </string>
+    <string name="tag_stat">Tag Stat</string>
+    <string name="help">HELP</string>
+    <string name="delete_tag">Delete Tag</string>
+
+
 </resources>

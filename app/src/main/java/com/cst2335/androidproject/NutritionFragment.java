@@ -1,8 +1,7 @@
 package com.cst2335.androidproject;
-
-import static java.lang.Math.round;
-
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,22 +16,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.cst2335.androidproject.R;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class RecipeFragment extends Fragment {
+import static java.lang.Math.round;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+
+/**
+ * to create the nutrition detail activity
+ */
+public class NutritionFragment extends Fragment {
+
     private View view;
     private TextView caloriesTextView;
     private TextView fatTextView;
     private Button delBtn;
-    private RecipeDatabaseHelper recipeDatabaseHelper;
+    private NutritionDatabaseHelper foodDatabaseHelper;
     private SQLiteDatabase sqLiteDatabase;
     private Button nutritionTagBtn;
     private String foodTag;
@@ -52,7 +54,7 @@ public class RecipeFragment extends Fragment {
     private TextView foodNameTextView;
 
 
-    public RecipeFragment() {
+    public NutritionFragment() {
     }
 
     /**
@@ -66,7 +68,7 @@ public class RecipeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.recipefragment, container, false);
+        view = inflater.inflate(R.layout.nutrition_activity_fragment, container, false);
         return view;
     }
 
@@ -88,10 +90,10 @@ public class RecipeFragment extends Fragment {
         foodNameTextView = view.findViewById(R.id.foodName);
         statBtn = view.findViewById(R.id.statTag);
 
-        primaryFoodKey = RecipeFavouriteList.selectedName;
-        recipeDatabaseHelper = new RecipeDatabaseHelper(getActivity());
-        sqLiteDatabase = recipeDatabaseHelper.getReadableDatabase();
-        cursor = recipeDatabaseHelper.getSpecificFood(primaryFoodKey, sqLiteDatabase);//to get the data from the database
+        primaryFoodKey = NutritionFavouriteList.selectedName;
+        foodDatabaseHelper = new NutritionDatabaseHelper(getActivity());
+        sqLiteDatabase = foodDatabaseHelper.getReadableDatabase();
+        cursor = foodDatabaseHelper.getSpecificFood(primaryFoodKey, sqLiteDatabase);//to get the data from the database
         if (cursor.moveToFirst()) {
             tag = cursor.getString(3);
             Log.d(TAG, " Tag " + tag);
@@ -111,11 +113,11 @@ public class RecipeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (getArguments().getBoolean("isTablet")) {
-                            sqLiteDatabase = recipeDatabaseHelper.getWritableDatabase();
-                            recipeDatabaseHelper.delFood(getArguments().getString("id"), sqLiteDatabase);
-                            ((RecipeFavouriteList) getActivity()).notifyChange();
-                            ((RecipeFavouriteList) getActivity()).query();
-                            getFragmentManager().beginTransaction().remove(RecipeFragment.this).commit();
+                            sqLiteDatabase = foodDatabaseHelper.getWritableDatabase();
+                            foodDatabaseHelper.delFood(getArguments().getString("id"), sqLiteDatabase);
+                            ((NutritionFavouriteList) getActivity()).notifyChange();
+                            ((NutritionFavouriteList) getActivity()).query();
+                            getFragmentManager().beginTransaction().remove(NutritionFragment.this).commit();
                         } else {
                             Intent resultIntent = new Intent();
                             resultIntent.putExtra("id", getArguments().getString("id"));
@@ -160,61 +162,67 @@ public class RecipeFragment extends Fragment {
         });
 
         //to get the statistics of total, average, min and max on a specific tag
-        statBtn.setOnClickListener((View.OnClickListener) v -> {
-            cursor = recipeDatabaseHelper.getSpecificFood(primaryFoodKey, sqLiteDatabase);//to get the data from the database
-            if (cursor.moveToFirst()) {
-                tag = cursor.getString(3);
-                if (tag != null) {
-                    cursor = recipeDatabaseHelper.getTag(tag, sqLiteDatabase);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            calStat.add(cursor.getDouble(1));
-                        } while (cursor.moveToNext());
+        statBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cursor = foodDatabaseHelper.getSpecificFood(primaryFoodKey, sqLiteDatabase);//to get the data from the database
+                if (cursor.moveToFirst()) {
+                    tag = cursor.getString(3);
+                    if (tag != null) {
+                        cursor = foodDatabaseHelper.getTag(tag, sqLiteDatabase);
+                        if (cursor.moveToFirst()) {
+                            do {
+                                calStat.add(cursor.getDouble(1));
+                            } while (cursor.moveToNext());
+                        }
+                        calMax = Collections.max(calStat); //get max of calories
+                        calMin = Collections.min(calStat); //get min of calories
+                        calTotal = foodDatabaseHelper.getSum(tag); //get total calories
+                        calAve = round(calTotal / calStat.size()); //get average calories
+
+                        //alertdialog box to show the stattics of max, min, total and average of calories under the same tag name
+                        AlertDialog calStatDialog = new AlertDialog.Builder(getActivity())
+                                .setTitle(getString(R.string.tag_stat_title) + tag)
+                                .setMessage(getString(R.string.max_cal) + Double.toString(calMax) + " g" + "\n"
+                                        + getString(R.string.min_cal) + Double.toString(calMin) + " g" + "\n" +
+                                        getString(R.string.total_cal) + calTotal + " g" + "\n" +
+                                        getString(R.string.ave_cal) + calAve + " g")
+                                .setCancelable(true)
+                                .create();
+                        calStatDialog.show();
+
+
+                    } else {
+                        toastMessage(getString(R.string.no_tag_found));
                     }
-                    calMax = Collections.max(calStat); //get max of calories
-                    calMin = Collections.min(calStat); //get min of calories
-                    calTotal = recipeDatabaseHelper.getSum(tag); //get total calories
-                    calAve = round(calTotal / calStat.size()); //get average calories
-
-                    //alertdialog box to show the stattics of max, min, total and average of calories under the same tag name
-                    AlertDialog calStatDialog = new AlertDialog.Builder(getActivity())
-                            .setTitle(getString(R.string.tag_stat_title) + tag)
-                            .setMessage(getString(R.string.max_cal) + Double.toString(calMax) + " g" + "\n"
-                                    + getString(R.string.min_cal) + Double.toString(calMin) + " g" + "\n" +
-                                    getString(R.string.total_cal) + calTotal + " g" + "\n" +
-                                    getString(R.string.ave_cal) + calAve + " g")
-                            .setCancelable(true)
-                            .create();
-                    calStatDialog.show();
-
-
-                } else {
-                    toastMessage(getString(R.string.no_tag_found));
                 }
-            }
 
+            }
         });
 
         /**
          * to delete the food tag
          */
-        tagDelBtn.setOnClickListener((View.OnClickListener) v -> {
-            String foodTagString = foodTagTextView.getText().toString();
-            if (!(foodTagString.isEmpty())) {
-                DeleteTag(primaryFoodKey);
-            } else {
+        tagDelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String foodTagString = foodTagTextView.getText().toString();
+                if (!(foodTagString.isEmpty())) {
+                    DeleteTag(primaryFoodKey);
+                } else {
 
-                toastMessage(getString(R.string.no_tag_found));
+                    toastMessage(getString(R.string.no_tag_found));
+                }
+                //getFragmentManager().beginTransaction().detach(NutritionFragment.this).attach(NutritionFragment.this).commit();
+                //Log.i("IsRefresh", "Yes");
+
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(NutritionFragment.this).attach(NutritionFragment.this).commit();
+                // FragmentTransaction fragTransaction =   (getActivity()).getFragmentManager().beginTransaction();
+                //fragTransaction.detach(NutritionFragment.this);
+                //fragTransaction.attach(NutritionFragment.this);
+                //fragTransaction.commit();
             }
-            //getFragmentManager().beginTransaction().detach(NutritionFragment.this).attach(NutritionFragment.this).commit();
-            //Log.i("IsRefresh", "Yes");
-
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.detach(RecipeFragment.this).attach(RecipeFragment.this).commit();
-            // FragmentTransaction fragTransaction =   (getActivity()).getFragmentManager().beginTransaction();
-            //fragTransaction.detach(NutritionFragment.this);
-            //fragTransaction.attach(NutritionFragment.this);
-            //fragTransaction.commit();
         });
 
     }
@@ -226,7 +234,7 @@ public class RecipeFragment extends Fragment {
      */
     public void DeleteTag(String id) {
         // foodDatabaseHelper = new NutritionDatabaseHelper(getActivity());
-        boolean deleteTag = recipeDatabaseHelper.deleteTag(id);
+        boolean deleteTag = foodDatabaseHelper.deleteTag(id);
         if (deleteTag) {
             toastMessage(getString(R.string.tag_delete));
         } else {
@@ -240,8 +248,8 @@ public class RecipeFragment extends Fragment {
      * @param id
      */
     public void UpdateData(String food, String id) {
-        recipeDatabaseHelper = new RecipeDatabaseHelper(getActivity());
-        boolean updateData = recipeDatabaseHelper.updateName(food, id);
+        foodDatabaseHelper = new NutritionDatabaseHelper(getActivity());
+        boolean updateData = foodDatabaseHelper.updateName(food, id);
         if (updateData) {
             toastMessage(getString(R.string.tag_update));
         } else {
@@ -253,4 +261,5 @@ public class RecipeFragment extends Fragment {
     private void toastMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
 }

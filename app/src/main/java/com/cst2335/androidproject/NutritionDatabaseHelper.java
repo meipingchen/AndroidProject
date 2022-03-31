@@ -1,5 +1,15 @@
 package com.cst2335.androidproject;
 
+/**
+ * File name: NutritionDatabaseHelper.java
+ * NutritionAuthor: Feng Cheng, ID#:040719618
+ * Course: CST2335 - Mobile Graphical Interface Prog.
+ * Final project
+ * Date: 2018-11-12
+ * Professor: Eric
+ * Purpose: To set up the database
+ */
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,9 +17,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
-public class RecipeDatabaseHelper extends SQLiteOpenHelper {
+/**
+ * This is the database class for storing the items that user saves.
+ */
+public class NutritionDatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "FoodNutrition.db";
     public static final int VERSION_NUM = 6;
     public static final String KEY_ID = "food";
@@ -28,7 +39,7 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
      *
      * @param cxt Context
      */
-    public RecipeDatabaseHelper(Context cxt) {
+    public NutritionDatabaseHelper(Context cxt) {
         super(cxt, DATABASE_NAME, null, VERSION_NUM);
     }
 
@@ -212,4 +223,5 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
             database.close();
         }
     }
+
 }

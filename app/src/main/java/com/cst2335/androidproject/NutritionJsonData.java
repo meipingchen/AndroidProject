@@ -1,5 +1,4 @@
 package com.cst2335.androidproject;
-
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -12,8 +11,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodData {
-    private List<RecipeNewData> newRecipeList = new ArrayList<>();
+/**
+ * to fetch the data from Json file.
+ */
+public class NutritionJsonData {
+    private List<NutritionNewBean> newBeanList = new ArrayList<>();
 
     /**
      * to get the data from the Json Object
@@ -21,7 +23,7 @@ public class FoodData {
      * @param jsonUrl the URL for the connection
      * @return the data of the Json Object
      */
-    public List<RecipeNewData> getJsonData(String jsonUrl) {
+    public List<NutritionNewBean> getJsonData(String jsonUrl) {
 
         try {
             //create http URL
@@ -52,16 +54,16 @@ public class FoodData {
             double calories = (double) foodObject.getJSONObject("nutrients").get("ENERC_KCAL");
             double fat = (double) foodObject.getJSONObject("nutrients").get("FAT");
 
-            RecipeNewData newBean = new RecipeNewData();
+            NutritionNewBean newBean = new NutritionNewBean();
             newBean.setCalories(calories);
             newBean.setFat(fat);
-            newRecipeList.add(newBean);
+            newBeanList.add(newBean);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return newRecipeList;
+        return newBeanList;
 
     }
-}
 
+}

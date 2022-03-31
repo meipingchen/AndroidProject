@@ -1,6 +1,6 @@
 package com.cst2335.androidproject;
 
-public class RecipeNewData {
+public class NutritionNewBean {
     private double calories;
     private double fat;
 
@@ -10,7 +10,7 @@ public class RecipeNewData {
      * @param calories double
      * @param fat      double
      */
-    public RecipeNewData(double calories, double fat) {
+    public NutritionNewBean(double calories, double fat) {
         super();
         this.calories = calories;
         this.fat = fat;
@@ -55,7 +55,7 @@ public class RecipeNewData {
      *
      * the constructor
      */
-    public RecipeNewData() {
+    public NutritionNewBean() {
         super();
     }
 
@@ -64,7 +64,7 @@ public class RecipeNewData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RecipeNewData that = (RecipeNewData) o;
+        NutritionNewBean that = (NutritionNewBean) o;
 
         if (Double.compare(that.calories, calories) != 0) return false;
         return Double.compare(that.fat, fat) == 0;
