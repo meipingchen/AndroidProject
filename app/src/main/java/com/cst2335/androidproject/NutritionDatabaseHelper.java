@@ -75,19 +75,19 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
     /**
      * to add data
      *
-     * @param food primary id
-     * @param cal  the attribute
-     * @param fat  the attribute
+     * @param recipe primary id
+     * @param title  the attribute
+     * @param url  the attribute
      * @return the data inserted successfully or not
      */
-    public boolean addData(String food, double cal, double fat) {
+    public boolean addData(String recipe, String title, String url) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_ID, food);
-        contentValues.put(COL2, cal);
-        contentValues.put(COL3, fat);
+        contentValues.put(KEY_ID, recipe);
+        contentValues.put(COL2, title);
+        contentValues.put(COL3, url);
 
-        Log.d(TAG, "addData: Adding " + food + cal + fat + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + recipe + title + url + " to " + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
 

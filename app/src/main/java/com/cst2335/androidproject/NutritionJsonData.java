@@ -46,17 +46,24 @@ public class NutritionJsonData {
                 sb.append(str);
             }
             Log.e("TAG", "" + sb.toString());
-            JSONObject jsonObject = new JSONObject(sb.toString());
-            JSONArray jsonArray = jsonObject.getJSONArray("hints");
-            JSONObject textArray = jsonArray.getJSONObject(0);
-            JSONObject foodObject = textArray.getJSONObject("food");
-            JSONObject nutrients = foodObject.getJSONObject("nutrients");
-            double calories = (double) foodObject.getJSONObject("nutrients").get("ENERC_KCAL");
-            double fat = (double) foodObject.getJSONObject("nutrients").get("FAT");
+            JSONObject response = new JSONObject(sb.toString());
+            JSONArray hits = response.getJSONArray("hits");
+            for (int i = 0; i<hits.length(); i++) {
+                JSONObject hit = hits.getJSONObject(i);
+                JSONObject recipe = hit.getJSONObject("recipe");
+                JSONArray jsonArray = recipe.getJSONArray("ingredientLines");
+
+                jsonArray.toString(); // ["", “”, “”]
+
+                String title = recipe.getString("label");
+                String url = recipe.getString("url");
+            }
+
+
 
             NutritionNewBean newBean = new NutritionNewBean();
-            newBean.setCalories(calories);
-            newBean.setFat(fat);
+            newBean.setTitle(title);
+            newBean.setURL(url);
             newBeanList.add(newBean);
 
         } catch (Exception e) {

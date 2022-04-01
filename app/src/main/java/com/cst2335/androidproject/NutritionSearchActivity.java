@@ -37,14 +37,14 @@ public class NutritionSearchActivity extends AppCompatActivity {
     private Button btnSearch;
     private ListView listView;
     protected static final String ACTIVITY_NAME = "NutritionSearchActivity";
-    private String app_id = "40cb1f76", app_key = "9dd571cf4d9e83a7796c460130be79dd";
+    private String app_id = "d0ea21e0", app_key = "551ca2a90e34d9d00522b6af20718851";
     private List<NutritionNewBean> newBeanList = new ArrayList<>();
-    public static String food;
-    private String jsonUrl = " https://api.edamam.com/api/food-database/parser?ingr=" + food + "&app_id=" + app_id + "&app_key=" + app_key;
+    public static String recipe;
+    private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=" + recipe + "&app_id=" + app_id + "&app_key=" + app_key;
     private NutritionDatabaseHelper foodDatabaseHelper = new NutritionDatabaseHelper(this);
 
     /**
-     * to create the search activity
+     * to create the search activityfan00056@algonquinlive.com
      *
      * @param savedInstanceState Bundle
      */
@@ -64,8 +64,8 @@ public class NutritionSearchActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                food = searchEditText.getText().toString();
-                if (food != null && !food.isEmpty()) {
+                recipe = searchEditText.getText().toString();
+                if (recipe != null && !recipe.isEmpty()) {
                     new MyAsyncTask().execute(jsonUrl);
                 } else {
                     toastMessage(getString(R.string.prompt_to_enter));
@@ -73,17 +73,17 @@ public class NutritionSearchActivity extends AppCompatActivity {
             }
         });
 
-        //to add the food to the favourite list.
+        //to add the recipe to the favourite list.
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                food = searchEditText.getText().toString();
+                recipe = searchEditText.getText().toString();
 
-                if (food != null && !(food.isEmpty())) {
+                if (recipe != null && !(recipe.isEmpty())) {
                     if (adapter != null) {
-                        double fat = adapter.fatData;
-                        double cal = adapter.calData;
-                        AddData(food, cal, fat);
+                        String title = adapter.titleData;
+                        String url = adapter.urlData;
+                        AddData(recipe, title, url);
                     } else {
                         toastMessage(getString(R.string.no_result_found));
                     }
@@ -109,12 +109,12 @@ public class NutritionSearchActivity extends AppCompatActivity {
     /**
      * to add the data to database .
      *
-     * @param food primary key in the database
-     * @param cal  the detail that needs to be inserted in the calory column
-     * @param fat  the detail that needs to be insterted in the fat column
+     * @param recipe primary key in the databaseegg
+     * @param title  the detail that needs to be inserted in the calory column
+     * @param url  the detail that needs to be insterted in the fat column
      */
-    public void AddData(String food, double cal, double fat) {
-        boolean insertData = foodDatabaseHelper.addData(food, cal, fat);
+    public void AddData(String recipe, String  title, String url) {
+        boolean insertData = foodDatabaseHelper.addData(recipe, title, url);
         if (insertData) {
             toastMessage(getString(R.string.data_insert));
         } else {
@@ -126,7 +126,7 @@ public class NutritionSearchActivity extends AppCompatActivity {
      * inner class to parse the API KEY
      */
     class MyAsyncTask extends AsyncTask<String, Void, List<NutritionNewBean>> {
-        private String jsonUrl = " https://api.edamam.com/api/food-database/parser?ingr=" + food + "&app_id=" + app_id + "&app_key=" + app_key;
+        private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=" + recipe + "&app_id=" + app_id + "&app_key=" + app_key;
         NutritionJsonData jsonData = new NutritionJsonData();
 
         /**

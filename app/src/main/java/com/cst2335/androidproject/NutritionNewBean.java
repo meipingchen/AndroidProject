@@ -1,55 +1,55 @@
 package com.cst2335.androidproject;
 
 public class NutritionNewBean {
-    private double calories;
-    private double fat;
+    private String title;
+    private String url;
 
     /**
      * constructor for instantiation
      *
-     * @param calories double
-     * @param fat      double
+     * @param title String
+     * @param url   String
      */
-    public NutritionNewBean(double calories, double fat) {
+    public NutritionNewBean(String title, String url) {
         super();
-        this.calories = calories;
-        this.fat = fat;
+        this.title = title;
+        this.url = url;
     }
 
     /**
      * to get the calories
      *
-     * @return the calories double
+     * @return the title
      */
-    public double getCalories() {
-        return calories;
+    public String getTitle() {
+        return title;
     }
 
     /**
      * to the calories
      *
-     * @param calories the calories to set
+     * @param title the calories to set
      */
-    public void setCalories(double calories) {
-        this.calories = calories;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
      * to get the fat
      *
-     * @return fat double
+     * @return url String
      */
-    public double getFat() {
-        return fat;
+    public String getURL() {
+        return url;
     }
 
     /**
      * to set the fat
      *
-     * @param fat fat to set
+     * @param url to set
      */
-    public void setFat(double fat) {
-        this.fat = fat;
+    public void setURL(String url) {
+        this.url = url;
     }
     /**
      *
@@ -58,7 +58,7 @@ public class NutritionNewBean {
     public NutritionNewBean() {
         super();
     }
-
+/*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,18 +66,18 @@ public class NutritionNewBean {
 
         NutritionNewBean that = (NutritionNewBean) o;
 
-        if (Double.compare(that.calories, calories) != 0) return false;
-        return Double.compare(that.fat, fat) == 0;
+        if (title.equals(that.title) != 0) return false;
+        return String.compare(that.url, url) == 0;
     }
 
     @Override
     public int hashCode() {
         int result;
-        long temp;
-        temp = Double.doubleToLongBits(calories);
+        String temp;
+        temp =title;
         result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(fat);
+        temp = url;
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
-    }
+    }*/
 }

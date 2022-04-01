@@ -16,8 +16,8 @@ public class NutritionJsonAdapter extends BaseAdapter {
 
     private List<NutritionNewBean> data;
     private LayoutInflater inflater;
-    public double calData;
-    public double fatData;
+    public String titleData;
+    public String urlData;
 
     /**
      * constructor for instantiation
@@ -86,13 +86,13 @@ public class NutritionJsonAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        calData = data.get(position).getCalories();
-        fatData = data.get(position).getFat();
-        String calString = Double.toString(calData);
-        String fatString = Double.toString(fatData);
-        viewHolder.searchedFood.setText("Food: " + NutritionSearchActivity.food);
-        viewHolder.fat.setText("Fat: " + fatString + " g ");
-        viewHolder.calories.setText("Calories: " + calString + " g ");
+        titleData = data.get(position).getTitle();
+        urlData = data.get(position).getURL();
+        //String calString = Double.toString(titleData);
+        //String fatString = Double.toString(urlData);
+        viewHolder.searchedFood.setText("Food: " + NutritionSearchActivity.recipe);
+        viewHolder.fat.setText("Fat: " + urlData + " g ");
+        viewHolder.calories.setText("Calories: " + titleData + " g ");
         return convertView;
     }
 
