@@ -18,12 +18,13 @@ public class RecipeJsonAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     public String titleData;
     public String urlData;
+    public String ingredientData;
 
     /**
      * constructor for instantiation
      *
      * @param context Context
-     * @param data    List<NutritionNewBean>
+     * @param data    List<RecipeNewBean>
      */
     public RecipeJsonAdapter(Context context, List<RecipeNewBean> data) {
         super();
@@ -86,13 +87,14 @@ public class RecipeJsonAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        ingredientData= data.get(position).getIngredient();
         titleData = data.get(position).getTitle();
         urlData = data.get(position).getURL();
         //String calString = Double.toString(titleData);
         //String fatString = Double.toString(urlData);
-        viewHolder.searchedFood.setText("Food: " + RecipeSearchActivity.recipe);
-        viewHolder.fat.setText("Fat: " + urlData + " g ");
-        viewHolder.calories.setText("Calories: " + titleData + " g ");
+        viewHolder.searchedFood.setText("Ingredient: " + ingredientData);
+        viewHolder.fat.setText("url: " + urlData);
+        viewHolder.calories.setText("Title: " + titleData);
         return convertView;
     }
 

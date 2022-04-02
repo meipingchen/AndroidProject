@@ -24,8 +24,8 @@
     <string name="author">Author: Jin Zhang/Qin Li/Meiping Chen</string>
     <string name="instruction">Instructions: You can search for the Recipe of a food. You can add it to your favourite list. On your list, you can retrieve the recipe information of a selected food. You can also delete a recipe on your favourite list from the details page. You can add a tag to a food and can get statistics on each tag counting the total calories, average calories, max and min calories.
  </string>
-    <string name="calories">Calories:</string>
-    <string name="fat">Fat:</string>
+    <string name="calories">Title:</string>
+    <string name="fat">Url:</string>
     <string name="dialogboxTitle">Food Nutrition Database</string>
     <string name="prompt_to_enter">Please enter something.</string>
     <string name="tag_already">It has a tag already</string>
