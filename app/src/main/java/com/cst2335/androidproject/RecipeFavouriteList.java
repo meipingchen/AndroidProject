@@ -14,17 +14,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.cst2335.androidproject.NutritionDatabaseHelper.NUTRITION_FIELDS;
-import static com.cst2335.androidproject.NutritionDatabaseHelper.TABLE_NAME;
+import static com.cst2335.androidproject.RecipeDBHelper.NUTRITION_FIELDS;
+import static com.cst2335.androidproject.RecipeDBHelper.TABLE_NAME;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * This activity is to store the searched food items.
  */
-public class NutritionFavouriteList extends AppCompatActivity {
+public class RecipeFavouriteList extends AppCompatActivity {
     private static final String TAG = "NutritionFavouriteList";
-    private NutritionDatabaseHelper foodDatabaseHelper;
+    private RecipeDBHelper foodDatabaseHelper;
     private ListView fListView;
     private SQLiteDatabase sqLiteDatabase;
     private ArrayList<String> listData;
@@ -50,7 +50,7 @@ public class NutritionFavouriteList extends AppCompatActivity {
      */
     public void populateListView() {
         Log.d(TAG, "populateListView: Displaying data in the ListView ");
-        foodDatabaseHelper = new NutritionDatabaseHelper(this);
+        foodDatabaseHelper = new RecipeDBHelper(this);
         Cursor data = foodDatabaseHelper.getData();
         listData = new ArrayList<>();
         while (data.moveToNext()) {
@@ -64,7 +64,7 @@ public class NutritionFavouriteList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 selectedName = adapterView.getItemAtPosition(position).toString(); //to retrieve the name of the food that has been entered.
-                foodDatabaseHelper = new NutritionDatabaseHelper(getApplicationContext());
+                foodDatabaseHelper = new RecipeDBHelper(getApplicationContext());
                 sqLiteDatabase = foodDatabaseHelper.getReadableDatabase();
                 cursor = foodDatabaseHelper.getSpecificFood(selectedName, sqLiteDatabase);//to get the data from the database
                 double cal = 0;
@@ -97,7 +97,7 @@ public class NutritionFavouriteList extends AppCompatActivity {
 
                 } else {
                     //go to the new detailed activity if it is a phone.
-                    Intent intent = new Intent(NutritionFavouriteList.this, NutritionDetailActivity.class);
+                    Intent intent = new Intent(RecipeFavouriteList.this, NutritionDetailActivity.class);
                     intent.putExtra("id", selectedName);
                     intent.putExtra("calories", calData);
                     intent.putExtra("fat", fatData);
@@ -127,7 +127,7 @@ public class NutritionFavouriteList extends AppCompatActivity {
         cursor = foodDatabaseHelper.getData();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                Log.i(TAG, "SQL MESSAGE:" + cursor.getString((cursor.getColumnIndex(NutritionDatabaseHelper.KEY_ID))));
+                Log.i(TAG, "SQL MESSAGE:" + cursor.getString((cursor.getColumnIndex(RecipeDBHelper.KEY_ID))));
                 listData.add(cursor.getString(cursor.getColumnIndex(foodDatabaseHelper.KEY_ID)));
                 cursor.moveToNext();
             }

@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * the adapter to set up the view.
  */
-public class NutritionJsonAdapter extends BaseAdapter {
+public class RecipeJsonAdapter extends BaseAdapter {
 
-    private List<NutritionNewBean> data;
+    private List<RecipeNewBean> data;
     private LayoutInflater inflater;
     public String titleData;
     public String urlData;
@@ -25,7 +25,7 @@ public class NutritionJsonAdapter extends BaseAdapter {
      * @param context Context
      * @param data    List<NutritionNewBean>
      */
-    public NutritionJsonAdapter(Context context, List<NutritionNewBean> data) {
+    public RecipeJsonAdapter(Context context, List<RecipeNewBean> data) {
         super();
         this.data = data;
         inflater = LayoutInflater.from(context);
@@ -90,7 +90,7 @@ public class NutritionJsonAdapter extends BaseAdapter {
         urlData = data.get(position).getURL();
         //String calString = Double.toString(titleData);
         //String fatString = Double.toString(urlData);
-        viewHolder.searchedFood.setText("Food: " + NutritionSearchActivity.recipe);
+        viewHolder.searchedFood.setText("Food: " + RecipeSearchActivity.recipe);
         viewHolder.fat.setText("Fat: " + urlData + " g ");
         viewHolder.calories.setText("Calories: " + titleData + " g ");
         return convertView;

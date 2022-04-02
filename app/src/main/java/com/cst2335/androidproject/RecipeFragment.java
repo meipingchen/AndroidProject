@@ -34,7 +34,7 @@ public class NutritionFragment extends Fragment {
     private TextView caloriesTextView;
     private TextView fatTextView;
     private Button delBtn;
-    private NutritionDatabaseHelper foodDatabaseHelper;
+    private RecipeDBHelper foodDatabaseHelper;
     private SQLiteDatabase sqLiteDatabase;
     private Button nutritionTagBtn;
     private String foodTag;
@@ -90,8 +90,8 @@ public class NutritionFragment extends Fragment {
         foodNameTextView = view.findViewById(R.id.foodName);
         statBtn = view.findViewById(R.id.statTag);
 
-        primaryFoodKey = NutritionFavouriteList.selectedName;
-        foodDatabaseHelper = new NutritionDatabaseHelper(getActivity());
+        primaryFoodKey = RecipeFavouriteList.selectedName;
+        foodDatabaseHelper = new RecipeDBHelper(getActivity());
         sqLiteDatabase = foodDatabaseHelper.getReadableDatabase();
         cursor = foodDatabaseHelper.getSpecificFood(primaryFoodKey, sqLiteDatabase);//to get the data from the database
         if (cursor.moveToFirst()) {
@@ -115,8 +115,8 @@ public class NutritionFragment extends Fragment {
                         if (getArguments().getBoolean("isTablet")) {
                             sqLiteDatabase = foodDatabaseHelper.getWritableDatabase();
                             foodDatabaseHelper.delFood(getArguments().getString("id"), sqLiteDatabase);
-                            ((NutritionFavouriteList) getActivity()).notifyChange();
-                            ((NutritionFavouriteList) getActivity()).query();
+                            ((RecipeFavouriteList) getActivity()).notifyChange();
+                            ((RecipeFavouriteList) getActivity()).query();
                             getFragmentManager().beginTransaction().remove(NutritionFragment.this).commit();
                         } else {
                             Intent resultIntent = new Intent();
@@ -248,7 +248,7 @@ public class NutritionFragment extends Fragment {
      * @param id
      */
     public void UpdateData(String food, String id) {
-        foodDatabaseHelper = new NutritionDatabaseHelper(getActivity());
+        foodDatabaseHelper = new RecipeDBHelper(getActivity());
         boolean updateData = foodDatabaseHelper.updateName(food, id);
         if (updateData) {
             toastMessage(getString(R.string.tag_update));

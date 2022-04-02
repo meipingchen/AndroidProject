@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * to fetch the data from Json file.
  */
-public class NutritionJsonData {
-    private List<NutritionNewBean> newBeanList = new ArrayList<>();
+public class RecipeJsonData {
+    private List<RecipeNewBean> newBeanList = new ArrayList<>();
 
     /**
      * to get the data from the Json Object
@@ -23,7 +23,7 @@ public class NutritionJsonData {
      * @param jsonUrl the URL for the connection
      * @return the data of the Json Object
      */
-    public List<NutritionNewBean> getJsonData(String jsonUrl) {
+    public List<RecipeNewBean> getJsonData(String jsonUrl) {
 
         try {
 
@@ -60,7 +60,7 @@ public class NutritionJsonData {
 
                 String title = recipe.getString("label");
                 String url = recipe.getString("url");
-                NutritionNewBean newBean = new NutritionNewBean();
+                RecipeNewBean newBean = new RecipeNewBean();
                 newBean.setIngredient(ingredient);
                 newBean.setTitle(title);
                 newBean.setURL(url);
