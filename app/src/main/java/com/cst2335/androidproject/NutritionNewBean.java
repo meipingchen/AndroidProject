@@ -1,6 +1,6 @@
 package com.cst2335.androidproject;
 
-public class NutritionNewBean {
+public class RecipeNewBean {
     private String ingredient;
     private String title;
     private String url;
@@ -11,7 +11,7 @@ public class NutritionNewBean {
      * @param title String
      * @param url   String
      */
-    public NutritionNewBean(String ingredient,String title, String url) {
+    public RecipeNewBean(String ingredient,String title, String url) {
         super();
         this.ingredient = ingredient;
         this.title = title;
@@ -75,7 +75,7 @@ public class NutritionNewBean {
      *
      * the constructor
      */
-    public NutritionNewBean() {
+    public RecipeNewBean() {
         super();
     }
 }

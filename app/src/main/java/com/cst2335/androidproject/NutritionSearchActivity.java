@@ -28,17 +28,17 @@ import java.util.List;
 /**
  * This is the activity for searching food.
  */
-public class NutritionSearchActivity extends AppCompatActivity {
+public class RecipeSearchActivity extends AppCompatActivity {
     private ProgressDialog loading = null;
-    private NutritionJsonAdapter adapter;
+    private RecipeJsonAdapter adapter;
     private EditText searchEditText;
     private Button btnAdd;
     private Button btnFavourite;
     private Button btnSearch;
     private ListView listView;
-    protected static final String ACTIVITY_NAME = "NutritionSearchActivity";
+    protected static final String ACTIVITY_NAME = "RecipeSearchActivity";
     private String app_id = "d0ea21e0", app_key = "551ca2a90e34d9d00522b6af20718851";
-    private List<NutritionNewBean> newBeanList = new ArrayList<>();
+    private List<RecipeNewBean> newBeanList = new ArrayList<>();
     public static String recipe;
     private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=" + recipe + "&app_id=" + app_id + "&app_key=" + app_key;
     private RecipeDBHelper foodDatabaseHelper = new RecipeDBHelper(this);
@@ -100,7 +100,7 @@ public class NutritionSearchActivity extends AppCompatActivity {
         btnFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NutritionSearchActivity.this, NutritionFavouriteList.class);
+                Intent intent = new Intent(RecipeSearchActivity.this, RecipeFavouriteList.class);
                 startActivity(intent);
             }
         });
@@ -125,9 +125,9 @@ public class NutritionSearchActivity extends AppCompatActivity {
     /**
      * inner class to parse the API KEY
      */
-    class MyAsyncTask extends AsyncTask<String, Void, List<NutritionNewBean>> {
+    class MyAsyncTask extends AsyncTask<String, Void, List<RecipeNewBean>> {
         private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=" + recipe + "&app_id=" + app_id + "&app_key=" + app_key;
-        NutritionJsonData jsonData = new NutritionJsonData();
+        RecipeJsonData jsonData = new RecipeJsonData();
 
         /**
          * the get the data from the Json Object
@@ -136,7 +136,7 @@ public class NutritionSearchActivity extends AppCompatActivity {
          * @return the data of the Json Object
          */
         @Override
-        protected List<NutritionNewBean> doInBackground(String... params) {
+        protected List<RecipeNewBean> doInBackground(String... params) {
             return newBeanList = jsonData.getJsonData(jsonUrl);
         }
 
@@ -146,7 +146,7 @@ public class NutritionSearchActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading = new ProgressDialog(NutritionSearchActivity.this);
+            loading = new ProgressDialog(RecipeSearchActivity.this);
             loading.setMessage(getString(R.string.waitmsg));
             loading.setCancelable(false);
             loading.show();
@@ -159,9 +159,9 @@ public class NutritionSearchActivity extends AppCompatActivity {
          * @param result the data from the Json Object
          */
         @Override
-        protected void onPostExecute(List<NutritionNewBean> result) {
+        protected void onPostExecute(List<RecipeNewBean> result) {
             super.onPostExecute(result);
-            adapter = new NutritionJsonAdapter(NutritionSearchActivity.this, newBeanList);
+            adapter = new RecipeJsonAdapter(RecipeSearchActivity.this, newBeanList);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             if (loading.isShowing()) {
@@ -206,7 +206,7 @@ public class NutritionSearchActivity extends AppCompatActivity {
         Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case R.id.help:
-                AlertDialog alertDialog = new AlertDialog.Builder(NutritionSearchActivity.this).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(RecipeSearchActivity.this).create();
                 alertDialog.setTitle(getString(R.string.dialogboxTitle));
                 alertDialog.setMessage(getString(R.string.author) + "\n" +
                         getString(R.string.version) + "\n" + getString(R.string.instruction));
