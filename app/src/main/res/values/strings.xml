@@ -21,8 +21,8 @@
     <string name="btn_search">Search</string>
     <string name="btn_add">Add</string>
     <string name="btn_favourite">Favourite</string>
-    <string name="author">Author: Feng Cheng</string>
-    <string name="instruction">Instructions: You can search for the calories and fat content of a food. You can add it to your favourite list. On your list, you can retrieve the nutrition information of a selected food. You can also delete an item on your favourite list from the details page. You can add a tag to a food and can get statistics on each tag counting the total calories, average calories, max and min calories.
+    <string name="author">Author: Jin Zhang/Qin Li/Meiping Chen</string>
+    <string name="instruction">Instructions: You can search for the Recipe of a food. You can add it to your favourite list. On your list, you can retrieve the recipe information of a selected food. You can also delete a recipe on your favourite list from the details page. You can add a tag to a food and can get statistics on each tag counting the total calories, average calories, max and min calories.
  </string>
     <string name="calories">Calories:</string>
     <string name="fat">Fat:</string>
