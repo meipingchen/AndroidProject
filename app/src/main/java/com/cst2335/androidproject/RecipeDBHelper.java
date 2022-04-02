@@ -20,7 +20,7 @@ public class RecipeDBHelper extends SQLiteOpenHelper {
     public static final String COL_ingredient = "ingredient";
     public static final String COL_title = "title";
     public static final String COL_url = "url";
-
+    public static final String COL4 = "Tag";
     public static final String TAG = "RecipeDatabaseHelper";
     private SQLiteDatabase database;
     public static String[] RecipeArr = new String[]{
@@ -125,14 +125,14 @@ public class RecipeDBHelper extends SQLiteOpenHelper {
      * @param sqLiteDatabase SQListeDatabase
      * @return the rows of the same tag
      */
-/*    public Cursor getTag(String tag, SQLiteDatabase sqLiteDatabase) {
+    public Cursor getTag(String tag, SQLiteDatabase sqLiteDatabase) {
         String[] projections = {KEY_ID, COL_ingredient, COL_title, COL_url};
         String selections = COL_url + " LIKE ?";
         String[] selection_args = {tag};
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, projections, selections, selection_args, null, null, null);
         return cursor;
     }
-*/
+
     /**
      * to update the tag column in the database after the users add a string tag to a food.
      *
@@ -140,7 +140,7 @@ public class RecipeDBHelper extends SQLiteOpenHelper {
      * @param id      the primary key of the database
      * @return the boolean type whether or not the tag is inserted into the column.
      */
- /*   public boolean updateName(String tagName, String id) {
+    public boolean updateName(String tagName, String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_url, tagName);
@@ -152,14 +152,14 @@ public class RecipeDBHelper extends SQLiteOpenHelper {
         }
 
     }
-*/
+
     /**
      * to delete food tag
      *
      * @param id primary key
      * @return boolean if the tag is deleted or not
      */
- /*   public boolean deleteTag(String id) {
+    public boolean deleteTag(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         String tag = null;
@@ -172,7 +172,7 @@ public class RecipeDBHelper extends SQLiteOpenHelper {
         }
 
     }
- */
+
 
     /**
      * to delete a specific row from the database
@@ -193,7 +193,7 @@ public class RecipeDBHelper extends SQLiteOpenHelper {
      * @param tag tag name
      * @return double calories
      */
- /*   public double getSum(String tag) {
+    public double getSum(String tag) {
         String sql = "SELECT SUM(" + COL_ingredient + ") FROM " + TABLE_NAME + " WHERE " + COL4 + " = " + "'" + tag + "'";
         database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(sql, null);
@@ -201,7 +201,7 @@ public class RecipeDBHelper extends SQLiteOpenHelper {
         double sumCal = cursor.getDouble(0);
         return sumCal;
     }
-*/
+
     /**
      * to open the writable database
      */

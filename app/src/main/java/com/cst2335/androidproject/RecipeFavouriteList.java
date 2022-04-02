@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.cst2335.androidproject.RecipeDBHelper.NUTRITION_FIELDS;
+import static com.cst2335.androidproject.RecipeDBHelper.RecipeArr;
 import static com.cst2335.androidproject.RecipeDBHelper.TABLE_NAME;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,7 +82,7 @@ public class RecipeFavouriteList extends AppCompatActivity {
 
                 //listview on tablet
                 if (findViewById(R.id.frameLayout) != null) {
-                    NutritionFragment nutritionFragment = new NutritionFragment();
+                    RecipeFragment nutritionFragment = new RecipeFragment();
                     Bundle bundle = new Bundle(); //save the data in the bundle for later retrieval.
                     bundle.putString("id", selectedName);
                     bundle.putString("calories", calData);
@@ -97,7 +97,7 @@ public class RecipeFavouriteList extends AppCompatActivity {
 
                 } else {
                     //go to the new detailed activity if it is a phone.
-                    Intent intent = new Intent(RecipeFavouriteList.this, NutritionDetailActivity.class);
+                    Intent intent = new Intent(RecipeFavouriteList.this, RecipeDetailActivity.class);
                     intent.putExtra("id", selectedName);
                     intent.putExtra("calories", calData);
                     intent.putExtra("fat", fatData);
@@ -147,7 +147,7 @@ public class RecipeFavouriteList extends AppCompatActivity {
         fListView.setAdapter(adapter);
         sqLiteDatabase = foodDatabaseHelper.getWritableDatabase();
 
-        cursor = sqLiteDatabase.query(false, TABLE_NAME, NUTRITION_FIELDS, null, null, null, null, null, null);
+        cursor = sqLiteDatabase.query(false, TABLE_NAME, RecipeArr, null, null, null, null, null, null);
         int numColumns = cursor.getColumnCount();
         int numResult = cursor.getCount();
 

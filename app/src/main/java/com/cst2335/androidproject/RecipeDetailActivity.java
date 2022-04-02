@@ -5,11 +5,12 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 /**
  * This class is the activity for nutrition details.
  */
-public class NutritionDetailActivity extends AppCompatActivity {
+public class RecipeDetailActivity extends AppCompatActivity {
     /**
      * to create the nutrition activity.
      *
@@ -27,7 +28,7 @@ public class NutritionDetailActivity extends AppCompatActivity {
         bundle.putString("calories", getIntent().getStringExtra("calories"));
         bundle.putString("fat", getIntent().getStringExtra("fat"));
 
-        NutritionFragment fragment = new NutritionFragment();
+        RecipeFragment fragment = new RecipeFragment();
         fragment.setArguments(bundle);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.detail_frameLayout, fragment);

@@ -28,7 +28,7 @@ import androidx.annotation.Nullable;
 /**
  * to create the nutrition detail activity
  */
-public class NutritionFragment extends Fragment {
+public class RecipeFragment extends Fragment {
 
     private View view;
     private TextView caloriesTextView;
@@ -54,7 +54,7 @@ public class NutritionFragment extends Fragment {
     private TextView foodNameTextView;
 
 
-    public NutritionFragment() {
+    public RecipeFragment() {
     }
 
     /**
@@ -117,7 +117,7 @@ public class NutritionFragment extends Fragment {
                             foodDatabaseHelper.delFood(getArguments().getString("id"), sqLiteDatabase);
                             ((RecipeFavouriteList) getActivity()).notifyChange();
                             ((RecipeFavouriteList) getActivity()).query();
-                            getFragmentManager().beginTransaction().remove(NutritionFragment.this).commit();
+                            getFragmentManager().beginTransaction().remove(RecipeFragment.this).commit();
                         } else {
                             Intent resultIntent = new Intent();
                             resultIntent.putExtra("id", getArguments().getString("id"));
@@ -217,7 +217,7 @@ public class NutritionFragment extends Fragment {
                 //Log.i("IsRefresh", "Yes");
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.detach(NutritionFragment.this).attach(NutritionFragment.this).commit();
+                ft.detach(RecipeFragment.this).attach(RecipeFragment.this).commit();
                 // FragmentTransaction fragTransaction =   (getActivity()).getFragmentManager().beginTransaction();
                 //fragTransaction.detach(NutritionFragment.this);
                 //fragTransaction.attach(NutritionFragment.this);
