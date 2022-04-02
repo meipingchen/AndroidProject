@@ -41,7 +41,7 @@ public class NutritionSearchActivity extends AppCompatActivity {
     private List<NutritionNewBean> newBeanList = new ArrayList<>();
     public static String recipe;
     private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=" + recipe + "&app_id=" + app_id + "&app_key=" + app_key;
-    private NutritionDatabaseHelper foodDatabaseHelper = new NutritionDatabaseHelper(this);
+    private RecipeDBHelper foodDatabaseHelper = new RecipeDBHelper(this);
 
     /**
      * to create the search activityfan00056@algonquinlive.com

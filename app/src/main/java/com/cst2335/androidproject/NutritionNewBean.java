@@ -1,6 +1,7 @@
 package com.cst2335.androidproject;
 
 public class NutritionNewBean {
+    private String ingredient;
     private String title;
     private String url;
 
@@ -10,14 +11,33 @@ public class NutritionNewBean {
      * @param title String
      * @param url   String
      */
-    public NutritionNewBean(String title, String url) {
+    public NutritionNewBean(String ingredient,String title, String url) {
         super();
+        this.ingredient = ingredient;
         this.title = title;
         this.url = url;
     }
 
     /**
-     * to get the calories
+     * to get the ingredient
+     *
+     * @return the ingredient
+     */
+    public String getIngredient() {
+        return ingredient;
+    }
+
+    /**
+     * to set the ingredient
+     *
+     * @param ingredient the ingredient to set
+     */
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    /**
+     * to get the title
      *
      * @return the title
      */
@@ -26,16 +46,16 @@ public class NutritionNewBean {
     }
 
     /**
-     * to the calories
+     * to set the title
      *
-     * @param title the calories to set
+     * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * to get the fat
+     * to get the url
      *
      * @return url String
      */
@@ -44,7 +64,7 @@ public class NutritionNewBean {
     }
 
     /**
-     * to set the fat
+     * to set the url
      *
      * @param url to set
      */
@@ -58,26 +78,4 @@ public class NutritionNewBean {
     public NutritionNewBean() {
         super();
     }
-/*
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        NutritionNewBean that = (NutritionNewBean) o;
-
-        if (title.equals(that.title) != 0) return false;
-        return String.compare(that.url, url) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        String temp;
-        temp =title;
-        result = (int) (temp ^ (temp >>> 32));
-        temp = url;
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }*/
 }

@@ -26,12 +26,12 @@ public class NutritionJsonData {
     public List<NutritionNewBean> getJsonData(String jsonUrl) {
 
         try {
-            //create http URL
+
             URL httpUrl = new URL(jsonUrl);
-            //open URL
+
             HttpURLConnection connection = (HttpURLConnection) httpUrl
                     .openConnection();
-            //set parameter
+
             connection.setReadTimeout(5000);
             connection.setRequestMethod("GET");
 
@@ -39,11 +39,11 @@ public class NutritionJsonData {
                     new InputStreamReader(connection.getInputStream()));
 
             StringBuffer sb = new StringBuffer();
-            String str = "";
+            String ln = "";
 
-            while ((str = bufferedReader.readLine()) != null) {
+            while ((ln = bufferedReader.readLine()) != null) {
 
-                sb.append(str);
+                sb.append(ln);
             }
             Log.e("TAG", "" + sb.toString());
             JSONObject response = new JSONObject(sb.toString());
@@ -53,18 +53,19 @@ public class NutritionJsonData {
                 JSONObject recipe = hit.getJSONObject("recipe");
                 JSONArray jsonArray = recipe.getJSONArray("ingredientLines");
 
-                jsonArray.toString(); // ["", “”, “”]
+                String ingredient =  jsonArray.toString();
+                ingredient.replace("[","");
+                ingredient.replace("]","");
+                ingredient.replace('"',' ');
 
                 String title = recipe.getString("label");
                 String url = recipe.getString("url");
+                NutritionNewBean newBean = new NutritionNewBean();
+                newBean.setIngredient(ingredient);
+                newBean.setTitle(title);
+                newBean.setURL(url);
+                newBeanList.add(newBean);
             }
-
-
-
-            NutritionNewBean newBean = new NutritionNewBean();
-            newBean.setTitle(title);
-            newBean.setURL(url);
-            newBeanList.add(newBean);
 
         } catch (Exception e) {
             e.printStackTrace();

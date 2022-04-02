@@ -1,14 +1,6 @@
 package com.cst2335.androidproject;
 
-/**
- * File name: NutritionDatabaseHelper.java
- * NutritionAuthor: Feng Cheng, ID#:040719618
- * Course: CST2335 - Mobile Graphical Interface Prog.
- * Final project
- * Date: 2018-11-12
- * Professor: Eric
- * Purpose: To set up the database
- */
+
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,18 +12,19 @@ import android.util.Log;
 /**
  * This is the database class for storing the items that user saves.
  */
-public class NutritionDatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "FoodNutrition.db";
-    public static final int VERSION_NUM = 6;
-    public static final String KEY_ID = "food";
-    public static final String COL2 = "Calory";
-    public static final String COL3 = "Fat";
-    public static final String COL4 = "Tag";
-    public static final String TABLE_NAME = "Nutrition_Table";
-    public static final String TAG = "NutritionDatabaseHelper";
+public class RecipeDBHelper extends SQLiteOpenHelper {
+    public static final String filename = "Recipe";
+    public static final int version= 1;
+    public static final String TABLE_NAME = "RecipeTable";
+    public static final String KEY_ID = "_id";
+    public static final String COL_ingredient = "ingredient";
+    public static final String COL_title = "title";
+    public static final String COL_url = "url";
+
+    public static final String TAG = "RecipeDatabaseHelper";
     private SQLiteDatabase database;
-    public static String[] NUTRITION_FIELDS = new String[]{
-            KEY_ID, COL2, COL3
+    public static String[] RecipeArr = new String[]{
+            KEY_ID, COL_ingredient, COL_title,COL_url
     };
 
     /**
@@ -39,8 +32,8 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
      *
      * @param cxt Context
      */
-    public NutritionDatabaseHelper(Context cxt) {
-        super(cxt, DATABASE_NAME, null, VERSION_NUM);
+    public RecipeDBHelper(Context cxt) {
+        super(cxt, filename, null, version);
     }
 
     /**
@@ -50,9 +43,8 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" CREATE TABLE " + TABLE_NAME + " (" +
-                KEY_ID + " TEXT PRIMARY KEY, " + COL2 + " REAL," + COL3 + " REAL," +
-                COL4 + " TEXT);");
+        db.execSQL( String.format( "Create table %s ( %s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s  INTEGER );"
+                , TABLE_NAME, COL_ingredient, COL_title, COL_url));
 
 
         Log.i(TAG, "Calling onCreate()");
@@ -75,21 +67,21 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
     /**
      * to add data
      *
-     * @param recipe primary id
+     * @param ingredient primary id
      * @param title  the attribute
      * @param url  the attribute
      * @return the data inserted successfully or not
      */
-    public boolean addData(String recipe, String title, String url) {
+    public boolean addData(String ingredient, String title, String url) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_ID, recipe);
-        contentValues.put(COL2, title);
-        contentValues.put(COL3, url);
+        ContentValues newRow = new ContentValues();
+        newRow.put(COL_ingredient, ingredient);
+        newRow.put(COL_title, title);
+        newRow.put(COL_url, url);
 
-        Log.d(TAG, "addData: Adding " + recipe + title + url + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + ingredient + title + url + " to " + TABLE_NAME);
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
+        long result = db.insert(TABLE_NAME, null, newRow);
 
         if (result == -1) {
             return false;
@@ -118,12 +110,13 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
      * @return Cursor the specific the row
      */
     public Cursor getSpecificFood(String id, SQLiteDatabase sqLiteDatabase) {
-        String[] projections = {KEY_ID, COL2, COL3, COL4};
+        String[] projections = {KEY_ID, COL_ingredient, COL_title, COL_url};
         String selections = KEY_ID + " LIKE ?";
         String[] selection_args = {id};
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, projections, selections, selection_args, null, null, null);
         return cursor;
     }
+
 
     /**
      * to get the rows with the same tag.
@@ -132,14 +125,14 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
      * @param sqLiteDatabase SQListeDatabase
      * @return the rows of the same tag
      */
-    public Cursor getTag(String tag, SQLiteDatabase sqLiteDatabase) {
-        String[] projections = {KEY_ID, COL2, COL3, COL4};
-        String selections = COL4 + " LIKE ?";
+/*    public Cursor getTag(String tag, SQLiteDatabase sqLiteDatabase) {
+        String[] projections = {KEY_ID, COL_ingredient, COL_title, COL_url};
+        String selections = COL_url + " LIKE ?";
         String[] selection_args = {tag};
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, projections, selections, selection_args, null, null, null);
         return cursor;
     }
-
+*/
     /**
      * to update the tag column in the database after the users add a string tag to a food.
      *
@@ -147,10 +140,10 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
      * @param id      the primary key of the database
      * @return the boolean type whether or not the tag is inserted into the column.
      */
-    public boolean updateName(String tagName, String id) {
+ /*   public boolean updateName(String tagName, String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL4, tagName);
+        contentValues.put(COL_url, tagName);
         long result = db.update(TABLE_NAME, contentValues, "food = ?", new String[]{id});
         if (result == -1) {
             return false;
@@ -159,14 +152,14 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
-
+*/
     /**
      * to delete food tag
      *
      * @param id primary key
      * @return boolean if the tag is deleted or not
      */
-    public boolean deleteTag(String id) {
+ /*   public boolean deleteTag(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         String tag = null;
@@ -179,6 +172,7 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
+ */
 
     /**
      * to delete a specific row from the database
@@ -199,15 +193,15 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper {
      * @param tag tag name
      * @return double calories
      */
-    public double getSum(String tag) {
-        String sql = "SELECT SUM(" + COL2 + ") FROM " + TABLE_NAME + " WHERE " + COL4 + " = " + "'" + tag + "'";
+ /*   public double getSum(String tag) {
+        String sql = "SELECT SUM(" + COL_ingredient + ") FROM " + TABLE_NAME + " WHERE " + COL4 + " = " + "'" + tag + "'";
         database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(sql, null);
         cursor.moveToFirst();
         double sumCal = cursor.getDouble(0);
         return sumCal;
     }
-
+*/
     /**
      * to open the writable database
      */
