@@ -3,7 +3,6 @@ package com.cst2335.androidproject;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -51,7 +50,7 @@ public class RecipeSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nutrition_activity_search);
+        setContentView(R.layout.recipe_activity_search);
         listView = (ListView) findViewById(R.id.searchResult);
         searchEditText = (EditText) findViewById(R.id.searchEditTxt);
         btnSearch = (Button) findViewById(R.id.btn_search);

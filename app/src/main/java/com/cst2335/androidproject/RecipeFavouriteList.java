@@ -40,7 +40,7 @@ public class RecipeFavouriteList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nutrition_activity_favourite_list);
+        setContentView(R.layout.recipe_activity_favourite_list);
         fListView = (ListView) findViewById(R.id.favListView);
         populateListView();
     }

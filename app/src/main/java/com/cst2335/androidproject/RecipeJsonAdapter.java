@@ -77,7 +77,7 @@ public class RecipeJsonAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.nutrition_activity_listview_item, null);
+            convertView = inflater.inflate(R.layout.recipe_activity_listview_item, null);
             viewHolder.searchedFood = (TextView) convertView.findViewById(R.id.searchedFood);
             viewHolder.fat = (TextView) convertView
                     .findViewById(R.id.fat);
