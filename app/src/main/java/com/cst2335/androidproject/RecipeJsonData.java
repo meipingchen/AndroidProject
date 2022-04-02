@@ -54,9 +54,9 @@ public class RecipeJsonData {
                 JSONArray jsonArray = recipe.getJSONArray("ingredientLines");
 
                 String ingredient =  jsonArray.toString();
-                ingredient.replace("[","");
-                ingredient.replace("]","");
-                ingredient.replace('"',' ');
+                ingredient = ingredient.replace("[","");
+                ingredient = ingredient.replace("]","");
+                ingredient = ingredient.replace('"',' ');
 
                 String title = recipe.getString("label");
                 String url = recipe.getString("url");

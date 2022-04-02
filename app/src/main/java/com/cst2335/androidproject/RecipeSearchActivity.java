@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +32,7 @@ import java.util.List;
 public class RecipeSearchActivity extends AppCompatActivity {
     private ProgressDialog loading = null;
     private RecipeJsonAdapter adapter;
+
     private EditText searchEditText;
     private Button btnAdd;
     private Button btnFavourite;
@@ -41,6 +44,7 @@ public class RecipeSearchActivity extends AppCompatActivity {
     public static String recipe;
     private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=" + recipe + "&app_id=" + app_id + "&app_key=" + app_key;
     private RecipeDBHelper foodDatabaseHelper = new RecipeDBHelper(this);
+
 
     /**
      * to create the search activityfan00056@algonquinlive.com
