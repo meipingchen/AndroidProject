@@ -1,43 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-
     <item
-        android:id="@+id/octranspo"
-        android:title="Octranspo"
-        android:icon="@drawable/octranspo"
+
+        android:id="@+id/favorite"
+        android:title="Favorite"
+        android:icon="@drawable/favorite"
         android:orderInCategory="101"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/movies"
-        android:title="Movies"
+        android:id="@+id/pizza"
+        android:title="pizza"
         android:orderInCategory="102"
-        android:icon="@drawable/movies"
+        android:icon="@drawable/pizza"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/news"
-        android:title="CBC News"
-        android:orderInCategory="103"
-        android:icon="@drawable/news"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/nhl"
-        android:title="NHL"
-        android:orderInCategory="103"
-        android:icon="@drawable/nhl"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/nutrition"
-        android:title="Nutrition"
-        android:orderInCategory="103"
-        android:icon="@drawable/nutrition"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/help"
         android:orderInCategory="103"
         android:title="Help"
         app:showAsAction="never" />
+
 </menu>
