@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Recipe</string>
-    <string name="title">Title:</string>
-    <string name="author">Author:</string>
-    <string name="version">Version Number</string>
+    <string name="title">Title: </string>
+    <string name="author">Author: </string>
+    <string name="version">Version Number： </string>
     <string name="btn_search">search</string>
     <string name="search_hint">Enter the name of the food</string>
     <string name="open">open</string>
@@ -14,5 +14,9 @@
     <string name="ok">OK</string>
     <string name="save_on_off">Save or Not</string>
     <string name="undo">undo</string>
+    <string name="like">like</string>
+    <string name="ingredient">Ingredient: </string>
+    <string name="url">"URL: "</string>
+    <string name="search">Search</string>
 
 </resources>

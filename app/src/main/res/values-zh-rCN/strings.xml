@@ -1,18 +1,22 @@
 <resources>
-    <string name="app_name">Recipe</string>
-    <string name="title">Title:</string>
-    <string name="author">Author:</string>
-    <string name="version">Version Number</string>
-    <string name="btn_search">search</string>
-    <string name="search_hint">Enter the name of the food</string>
-    <string name="open">open</string>
-    <string name="close">close</string>
-    <string name="author_full">Author: Qin Li / Jin Zhang / Meiping Chen </string>
-    <string name="instruction">Instructions: You can search for the ingredients and  URL of a food. You can add it to your favourite list. On your list, you can retrieve the ingredient information of a selected recipe. You can also delete an item on your favourite list from the details page.
+    <string name="app_name">菜谱</string>
+    <string name="title">标题： </string>
+    <string name="author">作者： </string>
+    <string name="version">版本： </string>
+    <string name="btn_search">查询 </string>
+    <string name="search_hint">输入食物名字</string>
+    <string name="open">开</string>
+    <string name="close">关</string>
+    <string name="author_full">作者: Qin Li / Jin Zhang / Meiping Chen </string>
+    <string name="instruction">说明: You can search for the ingredients and  URL of a food. You can add it to your favourite list. On your list, you can retrieve the ingredient information of a selected recipe. You can also delete an item on your favourite list from the details page.
  </string>
-    <string name="dialogboxTitle">Recipe Database</string>
-    <string name="ok">OK</string>
-    <string name="save_on_off">Save or Not</string>
-    <string name="undo">undo</string>
+    <string name="dialogboxTitle">菜谱数据库</string>
+    <string name="ok">好的</string>
+    <string name="save_on_off">存储</string>
+    <string name="undo">撤销</string>
+    <string name="like">喜欢</string>
+    <string name="ingredient">成分</string>
+    <string name="url">链接</string>
+    <string name="search">查询</string>
 
 </resources>

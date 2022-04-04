@@ -9,7 +9,7 @@
         android:id="@+id/favList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="like"
+        android:text="@string/like"
         android:layout_marginLeft="100dp"
         android:textSize="40sp" />
 

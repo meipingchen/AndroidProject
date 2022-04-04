@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ingredient: "
+        android:text="@string/ingredient"
         android:id="@+id/ingredient"
         android:textSize="8dp"/>
 
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textSize="8dp"
         android:layout_below="@id/ingredient"
-        android:text="Title: "
+        android:text="@string/title"
         />
 
 
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:textSize="8dp"
-        android:text="URL: "
+        android:text="@string/url"
         />
 
     <Button
@@ -38,7 +38,7 @@
         android:layout_below="@id/url"
         android:visibility="gone"
         android:textSize="8dp"
-        android:text="Like"
+        android:text="@string/like"
         />
 
 </RelativeLayout>
