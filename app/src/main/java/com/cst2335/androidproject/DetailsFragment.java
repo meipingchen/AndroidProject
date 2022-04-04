@@ -39,12 +39,12 @@ public class DetailsFragment extends Fragment {
         ingredient.setText("Ingredient: "+ingredient1);
         title.setText("Title: "+title1);
         url.setText("URL: "+url1);
-/*
+
         url.setOnClickListener(click->{
            Uri uri=Uri.parse(url1);
             Intent w = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(w);
-        }); */
+        });
 
         return view;
     }
