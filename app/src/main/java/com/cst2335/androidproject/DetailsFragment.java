@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class DetailsFragment extends Fragment {
     private Bundle bundle;
@@ -28,8 +32,6 @@ public class DetailsFragment extends Fragment {
         TextView ingredient = view.findViewById(R.id.ingredient2);
         TextView title = view.findViewById(R.id.title2);
         TextView url = view.findViewById(R.id.url2);
-        CheckBox save = view.findViewById(R.id.checkBox2);
-
         bundle = getArguments();
         //fetch the message, id, and boolean info back from bundle
         String ingredient1 = bundle.getString("Ingredient");
@@ -39,12 +41,31 @@ public class DetailsFragment extends Fragment {
         ingredient.setText("Ingredient: "+ingredient1);
         title.setText("Title: "+title1);
         url.setText("URL: "+url1);
-/*
+
         url.setOnClickListener(click->{
-           Uri uri=Uri.parse(url1);
+            Uri uri=Uri.parse(url1);
             Intent w = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(w);
-        }); */
+        });
+        Switch save = view.findViewById(R.id.switch1);
+        String saveNow = "Save now";
+        String notSave = "Not save";
+        String undo = "undo";
+
+        save.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton cb, boolean b) {
+                if (b == true) {
+                    Snackbar.make(view, saveNow, Snackbar.LENGTH_LONG).setAction( undo, click -> cb.setChecked(!b)).show();
+
+                } else if (b == false) {
+                    Snackbar.make(view, notSave, Snackbar.LENGTH_LONG).setAction( undo, click -> cb.setChecked(!b)).show();
+                }
+
+            }
+        });
+
+
 
         return view;
     }

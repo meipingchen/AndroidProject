@@ -41,6 +41,14 @@
                 android:text="Search"
                 android:textStyle="italic|bold" />
 
+            <Button
+                android:id="@+id/btn_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Like"
+                android:textStyle="italic|bold"/>
+
         </LinearLayout>
     </LinearLayout>
 
