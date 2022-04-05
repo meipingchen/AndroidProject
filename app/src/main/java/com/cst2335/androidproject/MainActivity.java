@@ -401,6 +401,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+
+    /**
+     * MyAsynctask for parse URL
+     */
     class MyAsyncTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
         private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q="  + "&app_id=" + app_id + "&app_key=" + app_key;
         RecipeJsonData jsonData = new RecipeJsonData();
