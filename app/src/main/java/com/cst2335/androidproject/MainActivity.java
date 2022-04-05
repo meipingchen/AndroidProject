@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static final String TAG = "RecipeSearchActivity";//print log
     //MyOpenHelper myOpener;
-
+    private ProgressDialog loading = null;
     private EditText searchEditText;
     private String app_id = "d0ea21e0", app_key = "551ca2a90e34d9d00522b6af20718851";
     private ArrayList<Recipe> recipes = new ArrayList<>();
@@ -107,9 +109,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //add shared preference
         SharedPreferences sh=getSharedPreferences("MySharedPref",MODE_PRIVATE);
-        String s1=sh.getString("food name","");
-        searchEditText.setText(s1);
         SharedPreferences.Editor myEdit=sh.edit();
+        //String s1=sh.getString("food name","");
+        //searchEditText.setText(s1);
+        //SharedPreferences.Editor myEdit=sh.edit();
+        myEdit.putString("food name","");
         myEdit.commit();
 
         Button searchButton = findViewById(R.id.btn_search);
@@ -395,5 +399,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+    class MyAsyncTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
+        private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q="  + "&app_id=" + app_id + "&app_key=" + app_key;
+        RecipeJsonData jsonData = new RecipeJsonData();
 
+        /**
+         * the get the data from the Json Object
+         *
+         * @param params String
+         * @return the data of the Json Object
+         */
+        @Override
+        protected ArrayList<Recipe> doInBackground(String... params) {
+            return recipes = jsonData.getJsonData(jsonUrl);
+        }
+
+        /**
+         * the show the progress bar
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loading = new ProgressDialog(MainActivity.this);
+            loading.setMessage(getString(R.string.search));
+            loading.setCancelable(false);
+            loading.show();
+            ;
+        }
+
+        /**
+         * to set up the listview of the searched result
+         *
+         * @param result the data from the Json Object
+         */
+        @Override
+        protected void onPostExecute(ArrayList<Recipe> result) {
+            ListView myList = findViewById(R.id.searchResult);
+            super.onPostExecute(recipes);
+            myAdapter = new RecipeJsonAdapter(MainActivity.this, recipes);
+            myList.setAdapter(myAdapter);
+            myAdapter.notifyDataSetChanged();
+            if (loading.isShowing()) {
+                loading.dismiss();
+            }
+        }
+
+        /**
+         * @param values
+         */
+        @Override
+        protected void onProgressUpdate(Void... values) {
+
+        }
+    }
 }
