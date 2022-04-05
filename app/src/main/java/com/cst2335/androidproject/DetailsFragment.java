@@ -1,6 +1,7 @@
 package com.cst2335.androidproject;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -14,6 +15,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -21,7 +24,10 @@ import com.google.android.material.snackbar.Snackbar;
 public class DetailsFragment extends Fragment {
     private Bundle bundle;
     SQLiteDatabase theDatabase;
-    //MyOpenHelper myOpener = new MyOpenHelper(DetailsFragment.this);
+    MyOpenHelper myOpener;
+    String ingredient1;
+    String title1;
+    String url1;
 
 
     @Override
@@ -34,9 +40,9 @@ public class DetailsFragment extends Fragment {
         TextView url = view.findViewById(R.id.url2);
         bundle = getArguments();
         //fetch the message, id, and boolean info back from bundle
-        String ingredient1 = bundle.getString("Ingredient");
-        String title1 = bundle.getString("title");
-        String url1 = bundle.getString("url");
+        ingredient1 = bundle.getString("Ingredient");
+        title1 = bundle.getString("title");
+        url1 = bundle.getString("url");
         //locate message, id
         ingredient.setText("Ingredient: "+ingredient1);
         title.setText("Title: "+title1);
@@ -57,46 +63,38 @@ public class DetailsFragment extends Fragment {
             public void onCheckedChanged(CompoundButton cb, boolean b) {
                 if (b == true) {
                     Snackbar.make(view, saveNow, Snackbar.LENGTH_LONG).setAction( undo, click -> cb.setChecked(!b)).show();
-
+                    saveToDatabase();
                 } else if (b == false) {
                     Snackbar.make(view, notSave, Snackbar.LENGTH_LONG).setAction( undo, click -> cb.setChecked(!b)).show();
                 }
-
             }
         });
-
-
 
         return view;
     }
 
-
-/*
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkBox2:
-                if (checked)
-                //saveToDatabase();
-        else
-                break;
-            // Perform your logic
-        }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        myOpener = new MyOpenHelper(context);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        theDatabase.close();
+    }
+
     public void saveToDatabase(){
-        //Log.d(TAG, "Writing to Database");
-        //MyOpenHelper myOpener = new MyOpenHelper(this);
-        //myOpener = new MyOpenHelper( this );
+
         theDatabase = myOpener.getWritableDatabase();
         ContentValues newRow = new ContentValues();
-        newRow.put( MyOpenHelper.COL_ingredient , ingredientData );
-        newRow.put(MyOpenHelper.COL_title, titleData);
-        newRow.put(MyOpenHelper.COL_url,urlData);
+        newRow.put( MyOpenHelper.COL_ingredient , ingredient1 );
+        newRow.put(MyOpenHelper.COL_title, title1);
+        newRow.put(MyOpenHelper.COL_url,url1);
         //now that columns are full, you insert:
         theDatabase.insert( MyOpenHelper.TABLE_NAME, null, newRow );
-        //theDatabase.close();
+
     }
- */
+
 }

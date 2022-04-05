@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ingredient"
+        android:paddingBottom="20dp"
         android:textColor="@color/black" />
 
     <TextView
@@ -18,20 +19,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title"
-        android:textColor="@color/black" />
+        android:paddingBottom="20dp"
+        android:textColor="@color/blue" />
 
     <TextView
         android:id="@+id/url2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/url"
-        android:textColor="@color/black" />
+        android:paddingBottom="20dp"
+        android:textColor="@color/teal_200" />
 
     <Switch
         android:id="@+id/switch1"
         android:layout_columnWeight="1"
         android:text="@string/save_on_off"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:layout_width="match_parent"/>
 
 </LinearLayout>

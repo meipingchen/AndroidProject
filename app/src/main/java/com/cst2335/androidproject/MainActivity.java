@@ -309,9 +309,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             viewHolder.title.setText("Title: " + titleData);
             viewHolder.url.setText("URL: " + urlData);
 
-
-            //Button likeButton = convertView.findViewById(R.id.favButton);
-            //likeButton.setOnClickListener(view -> savetoDatabase(position));
             return convertView;
         }
 
