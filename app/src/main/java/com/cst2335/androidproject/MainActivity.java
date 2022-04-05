@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -96,8 +97,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //ArrayList<Recipe> recipes = new ArrayList<>();
 
     RecipeJsonAdapter myAdapter;
+    public static final String storeName="recipe name";
 
-
+    @SuppressLint("ApplySharedPref")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,12 +110,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         EditText searchEditText = findViewById(R.id.searchEditTxt);
 
         //add shared preference
-        SharedPreferences sh=getSharedPreferences("MySharedPref",MODE_PRIVATE);
-        SharedPreferences.Editor myEdit=sh.edit();
-        String s1=sh.getString("food name","");
-        searchEditText.setText(s1);
+        SharedPreferences sh=getSharedPreferences(storeName,Context.MODE_PRIVATE);
         //SharedPreferences.Editor myEdit=sh.edit();
-        myEdit.putString("food name","");
+        String s1=sh.getString(storeName,"");
+        searchEditText.setText(s1);
+        SharedPreferences.Editor myEdit=sh.edit();
+
         myEdit.commit();
 
         Button searchButton = findViewById(R.id.btn_search);
