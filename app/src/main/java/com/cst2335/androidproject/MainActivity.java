@@ -131,6 +131,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         });
 
+        Button likeButton = findViewById(R.id.btn_favorite);
+        likeButton.setOnClickListener( click -> {
+            Intent intent= new Intent(MainActivity.this,Favorite.class);
+            startActivity(intent);
+        });
+
+
         myList.setOnItemClickListener((adapterView, view, position, id) -> {
 
             Bundle bundle=new Bundle();
@@ -224,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //MyOpenHelper myOpener = new MyOpenHelper( this );
 
-    public class RecipeJsonAdapter extends BaseAdapter {
+    public static class RecipeJsonAdapter extends BaseAdapter {
 
         private ArrayList<Recipe> data;
         private LayoutInflater inflater;
@@ -312,14 +319,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return convertView;
         }
 
-
-
     };
 
     /**
      * inner class to hold the view of detailed searched result
      */
-    class ViewHolder {
+    public static class ViewHolder {
         public TextView ingredient, title, url;
         public Button like;
 
