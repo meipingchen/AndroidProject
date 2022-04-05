@@ -57,7 +57,7 @@ public class Favorite extends AppCompatActivity {
                     .setPositiveButton("Yes", (click, arg) -> {
                         favArray.remove(pos);
                         favList.notifyDataSetChanged();
-                        //theDatabase.delete(MyOpenHelper.TABLE_NAME,MyOpenHelper.COL_ID+"=?",new String[]{Long.toString(whatWasClicked.getId())});
+                        theDatabase.delete(MyOpenHelper.TABLE_NAME,MyOpenHelper.COL_url+"=?",new String[]{whatWasClicked.getUrl()});
                     })
                     //What the No button does:
                     .setNegativeButton("No", (click, arg) -> { })
