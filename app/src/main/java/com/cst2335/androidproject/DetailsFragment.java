@@ -67,7 +67,9 @@ public class DetailsFragment extends Fragment {
         ingredient.setText("Ingredient: "+ingredient1);
         title.setText("Title: "+title1);
         url.setText("URL: "+url1);
-
+        /**
+         * click the URL link to go to URL website page
+         */
         url.setOnClickListener(click->{
             Uri uri=Uri.parse(url1);
             Intent w = new Intent(Intent.ACTION_VIEW, uri);
@@ -77,7 +79,9 @@ public class DetailsFragment extends Fragment {
         String saveNow = "Save now";
         String notSave = "Not save";
         String undo = "undo";
-
+        /**
+         * click the save button to save the favourite recipe
+         */
         save.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton cb, boolean b) {

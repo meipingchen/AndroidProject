@@ -56,7 +56,9 @@ public class Favorite extends AppCompatActivity {
         MainActivity.RecipeJsonAdapter favList = new MainActivity.RecipeJsonAdapter(this,favArray);
         ListView favListView = findViewById(R.id.favPage);
         favListView.setAdapter(favList);
-
+        /**
+         * long click the like button to delete the recipe
+         */
         favListView.setOnItemLongClickListener( (p, b, pos, id) -> {
             MainActivity.Recipe whatWasClicked = favArray.get(pos);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

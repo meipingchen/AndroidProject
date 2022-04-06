@@ -65,7 +65,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "RecipeSearchActivity";//print log
-    //MyOpenHelper myOpener;
+
     private ProgressDialog loading = null;
     private EditText searchEditText;
     private String app_id = "d0ea21e0", app_key = "551ca2a90e34d9d00522b6af20718851";
@@ -80,23 +80,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         private String ingredient;
         private String title;
         private String url;
-        //public Boolean isFavorite;
 
 
+        /**
+         * Recipe constructor of 4 parameters
+         * @param ingredient of the recipe
+         * @param title of recipe
+         * @param url of recipe
+         * @param _id id of the recipe
+         */
         public Recipe(String ingredient, String title,String url, long _id) {
             this.ingredient = ingredient;
             this.title = title;
             this.url = url;
-            //this.isFavorite = isFavorite;
+
             this.id = _id;
         }
 
+        /**
+         * recipe constructor of 3 parameters
+         * @param ingredient of recipe
+         * @param title of recipe
+         * @param url of recipe
+         */
         public Recipe(String ingredient, String title,String url) {
             this.ingredient = ingredient;
             this.title = title;
             this.url = url;
-            //this.isFavorite = isFavorite;
-            //this.id = _id;
         }
         public long getId() {return id;}
         public String getIngredient() {return ingredient;}
@@ -105,14 +115,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public void setTitle(String title){this.title=title;};
         public String getUrl() {return url;}
         public void setUrl(String url){this.url=url;};
-        //public Boolean getIsFavorite() {return isFavorite;}
-        //public void setIsFavorite(String url){this.url=url;};
+
     }
-    //ArrayList<Recipe> recipes = new ArrayList<>();
 
     RecipeJsonAdapter myAdapter;
     public static final String storeName="recipe name";
 
+    /**
+     * onCreate of the class
+     * @param savedInstanceState
+     */
     @SuppressLint("ApplySharedPref")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,11 +137,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //add shared preference
         SharedPreferences sh=getSharedPreferences("MySharedPref",Context.MODE_PRIVATE);
-        //SharedPreferences.Editor myEdit=sh.edit();
+
         String s1=sh.getString("food name","");
         searchEditText.setText(s1);
 
         Button searchButton = findViewById(R.id.btn_search);
+        /**
+         * click the search button to search recipe
+         */
         searchButton.setOnClickListener( click -> {
             String inputText = searchEditText.getText().toString();
 
@@ -138,6 +153,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             myEdit.commit();
 
             RecipeJsonData apiIn = new RecipeJsonData();
+            /**
+             * parse the URL of the recipe website
+             */
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -154,16 +172,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         Button likeButton = findViewById(R.id.btn_favorite);
+        /**
+         * click the like button to go to favourite page to show favourite recipe list
+         */
         likeButton.setOnClickListener( click -> {
             Intent intent= new Intent(MainActivity.this,Favorite.class);
             startActivity(intent);
         });
 
-    /**
-     * to create the main activity
-     *
-     * @param savedInstanceState Bundle
-     */
+        /**
+         * click the recipe search result list to go to recipe details page
+         */
         myList.setOnItemClickListener((adapterView, view, position, id) -> {
 
             Bundle bundle=new Bundle();
@@ -178,13 +197,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         });
 
+        //for toolbar
         Toolbar recipeToolbar =  findViewById(R.id.recipe_toolbar);
         setSupportActionBar(recipeToolbar);
-        ImageButton imagebutton=(ImageButton)recipeToolbar.findViewById(R.id.favorite);
-//        imagebutton.setOnClickListener(v -> {
 
-        //  });
-//For NavigationDrawer:
+        //For NavigationDrawer:
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, recipeToolbar, R.string.open, R.string.close);
