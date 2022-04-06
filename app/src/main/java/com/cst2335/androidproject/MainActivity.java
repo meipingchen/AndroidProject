@@ -1,5 +1,15 @@
 package com.cst2335.androidproject;
-
+/**
+ * File name: MainActivity.java
+ * Course: CST2335 - Mobile Graphical Interface Prog.
+ * Final project
+ * Date: 2022-04-08
+ * Lab Professor: Frank Emanuel
+ * @author: Qin Li / Jin Zhang / Meiping Chen
+ * This program allows users to search recipe from edamam website by typing the food name and
+ * get a list of related food recipes. Recipe details will show on the screen after user select the interested one.
+ * User can save recipes and access them.
+ */
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -49,6 +59,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This is the main activity for searching recipe.
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "RecipeSearchActivity";//print log
@@ -57,10 +70,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private EditText searchEditText;
     private String app_id = "d0ea21e0", app_key = "551ca2a90e34d9d00522b6af20718851";
     private ArrayList<Recipe> recipes = new ArrayList<>();
-
     private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=";
 
-    //constructor Messages
+    /**
+     * Recipe class to store id, ingredient, title and url
+     */
     public static class Recipe {
         long id;
         private String ingredient;
@@ -110,17 +124,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         EditText searchEditText = findViewById(R.id.searchEditTxt);
 
         //add shared preference
-        SharedPreferences sh=getSharedPreferences(storeName,Context.MODE_PRIVATE);
+        SharedPreferences sh=getSharedPreferences("MySharedPref",Context.MODE_PRIVATE);
         //SharedPreferences.Editor myEdit=sh.edit();
-        String s1=sh.getString(storeName,"");
+        String s1=sh.getString("food name","");
         searchEditText.setText(s1);
-        SharedPreferences.Editor myEdit=sh.edit();
-
-        myEdit.commit();
 
         Button searchButton = findViewById(R.id.btn_search);
         searchButton.setOnClickListener( click -> {
             String inputText = searchEditText.getText().toString();
+
+            SharedPreferences.Editor myEdit=sh.edit();
+            myEdit.putString("food name",inputText);
+            myEdit.commit();
+
             RecipeJsonData apiIn = new RecipeJsonData();
             new Thread(new Runnable() {
                 @Override
@@ -143,7 +159,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         });
 
-
+    /**
+     * to create the main activity
+     *
+     * @param savedInstanceState Bundle
+     */
         myList.setOnItemClickListener((adapterView, view, position, id) -> {
 
             Bundle bundle=new Bundle();
@@ -163,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageButton imagebutton=(ImageButton)recipeToolbar.findViewById(R.id.favorite);
 //        imagebutton.setOnClickListener(v -> {
 
-      //  });
+        //  });
 //For NavigationDrawer:
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -175,13 +195,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * get the view of toolbar
+     *
+     * @param menu Menu
+     * @return boolean
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     /**
-     * multiple menu items for switching
+     * toolbar multiple menu items for switching
      *
      * @param item Menuitem
      * @return booolean
@@ -210,6 +236,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    /**
+     * navigation bar multiple menu items for switching
+     *
+     * @param item Menuitem
+     * @return booolean
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         String message = null;
@@ -222,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 message = "Qin Li / Jin Zhang / Meiping Chen";
                 break;
             case R.id.version:
-                //message = "Version Number: 1";
+                message = "Version Number: 1";
 
 
                 break;
@@ -236,7 +268,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //MyOpenHelper myOpener = new MyOpenHelper( this );
-
+    /**
+     * set up the view of the researched result
+     */
     public static class RecipeJsonAdapter extends BaseAdapter {
 
         private ArrayList<Recipe> data;
@@ -249,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          * constructor for instantiation
          *
          * @param context Context
-         * @param data    List<NutritionNewBean>
+         * @param data    ListArrayList<MainActivity.Recipe>
          */
         public RecipeJsonAdapter(Context context, ArrayList<Recipe> data) {
             super();
@@ -336,7 +370,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
+    /**
+     * To get the connection to the URL
+     */
     public class RecipeJsonData {
 
         //private String app_id = "d0ea21e0", app_key = "551ca2a90e34d9d00522b6af20718851";
@@ -401,7 +437,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
-
     /**
      * MyAsynctask for parse URL
      */
@@ -449,6 +484,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 loading.dismiss();
             }
         }
+
 
         /**
          * @param values

@@ -2,7 +2,7 @@
     <string name="app_name">Recipe</string>
     <string name="title">Title: </string>
     <string name="author">Author: </string>
-    <string name="version">Version Number： </string>
+    <string name="version">Version: </string>
     <string name="btn_search">search</string>
     <string name="search_hint">Enter the name of the food</string>
     <string name="open">open</string>

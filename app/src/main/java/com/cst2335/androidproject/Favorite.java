@@ -1,5 +1,15 @@
 package com.cst2335.androidproject;
 
+/**
+ * File name: DetailsFragment.java
+ * Author: Author: Qin Li / Jin Zhang / Meiping Chen
+ * Course: CST2335 - Mobile Graphical Interface Prog.
+ * Final project
+ * Date: 2022-04-08
+ * Lab Professor: Frank Emanuel
+ * @author: Qin Li / Jin Zhang / Meiping Chen
+ * Purpose: To get favorate recipes data from database
+ */
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,7 +25,12 @@ public class Favorite extends AppCompatActivity {
     SQLiteDatabase theDatabase;
     MyOpenHelper myOpener;
 
-
+    /**
+     * to create the Favorite activity
+     * get data from Recipe database
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,5 +96,3 @@ public class Favorite extends AppCompatActivity {
 
 
 }
-
-

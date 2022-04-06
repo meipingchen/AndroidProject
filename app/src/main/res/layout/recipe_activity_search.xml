@@ -15,9 +15,9 @@
         <ListView
             android:id="@+id/searchResult"
             android:layout_width="match_parent"
-            android:layout_height="341dp"
+            android:layout_height="320dp"
             android:layout_above="@id/btn_search"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="200dp"
             android:gravity="right" />
 
         <LinearLayout
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:fitsSystemWindows="true"
             app:menu="@menu/drawer_menu" />
 

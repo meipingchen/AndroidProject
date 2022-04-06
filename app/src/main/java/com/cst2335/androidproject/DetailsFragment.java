@@ -1,5 +1,15 @@
 package com.cst2335.androidproject;
 
+/**
+ * File name: DetailsFragment.java
+ * Author: Author: Qin Li / Jin Zhang / Meiping Chen
+ * Course: CST2335 - Mobile Graphical Interface Prog.
+ * Final project
+ * Date: 2022-04-08
+ * Lab Professor: Frank Emanuel
+ * @author: Qin Li / Jin Zhang / Meiping Chen
+ * Purpose: To display recipe details, including title, ingredients and url
+ */
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +31,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
+/**
+ * to create the recipe details activity
+ */
 public class DetailsFragment extends Fragment {
     private Bundle bundle;
     SQLiteDatabase theDatabase;
@@ -29,7 +42,14 @@ public class DetailsFragment extends Fragment {
     String title1;
     String url1;
 
-
+    /**
+     * to create fragment view of recipe details
+     *
+     * @param inflater           Inflater
+     * @param container          ViewGroup
+     * @param savedInstanceState Bundle
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,18 +93,27 @@ public class DetailsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * to create a database opener
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         myOpener = new MyOpenHelper(context);
     }
 
+    /**
+     * to close the database
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         theDatabase.close();
     }
 
+    /**
+     * to save data to the database
+     */
     public void saveToDatabase(){
 
         theDatabase = myOpener.getWritableDatabase();
