@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //add shared preference
         SharedPreferences sh=getSharedPreferences("MySharedPref",MODE_PRIVATE);
         //SharedPreferences.Editor myEdit=sh.edit();
-        String s1=sh.getString("fodd name","");
+        String s1=sh.getString("food name","");
         searchEditText.setText(s1);
 
         Button searchButton = findViewById(R.id.btn_search);
