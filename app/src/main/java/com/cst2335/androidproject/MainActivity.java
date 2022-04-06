@@ -49,6 +49,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "RecipeSearchActivity";//print log
@@ -60,7 +63,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=";
 
-    //constructor Messages
+    /**
+     * Recipe class
+     */
     public static class Recipe {
         long id;
         private String ingredient;
@@ -68,7 +73,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         private String url;
         //public Boolean isFavorite;
 
-
+        /**
+         * Recipe class constructor
+         * @param ingredient
+         * @param title
+         * @param url
+         * @param _id
+         */
         public Recipe(String ingredient, String title,String url, long _id) {
             this.ingredient = ingredient;
             this.title = title;
@@ -110,18 +121,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         EditText searchEditText = findViewById(R.id.searchEditTxt);
 
         //add shared preference
-        SharedPreferences sh=getSharedPreferences(storeName,Context.MODE_PRIVATE);
+        SharedPreferences sh=getSharedPreferences("MySharedPref",MODE_PRIVATE);
         //SharedPreferences.Editor myEdit=sh.edit();
-        String s1=sh.getString(storeName,"");
+        String s1=sh.getString("fodd name","");
         searchEditText.setText(s1);
-        SharedPreferences.Editor myEdit=sh.edit();
-
-        myEdit.commit();
 
         Button searchButton = findViewById(R.id.btn_search);
         searchButton.setOnClickListener( click -> {
             String inputText = searchEditText.getText().toString();
-            RecipeJsonData apiIn = new RecipeJsonData();
+
+            SharedPreferences.Editor myEdit=sh.edit();
+            myEdit.putString("food name", inputText);
+            myEdit.commit();
+
+           RecipeJsonData apiIn = new RecipeJsonData();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
