@@ -231,9 +231,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
+            case R.id.favorite:
+                Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.pizza:
+                Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
             case R.id.help:
                 android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(MainActivity.this).create();
                 alertDialog.setTitle(getString(R.string.dialogboxTitle));

@@ -42,15 +42,15 @@ public class Favorite extends AppCompatActivity {
 
         Cursor result = theDatabase.rawQuery("Select * from "
                 + MyOpenHelper.TABLE_NAME + ";", null);
-        int ingredient = result.getColumnIndex(MyOpenHelper.COL_ingredient);
         int title = result.getColumnIndex(MyOpenHelper.COL_title);
+        int ingredient = result.getColumnIndex(MyOpenHelper.COL_ingredient);
         int url = result.getColumnIndex(MyOpenHelper.COL_url);
         while (result.moveToNext()) {
-            String ingredientString = result.getString(ingredient);
             String titleString = result.getString(title);
+            String ingredientString = result.getString(ingredient);
             String urlString = result.getString(url);
 
-            favArray.add(new MainActivity.Recipe(ingredientString,titleString,urlString));
+            favArray.add(new MainActivity.Recipe(titleString,ingredientString,urlString));
         }
 
         MainActivity.RecipeJsonAdapter favList = new MainActivity.RecipeJsonAdapter(this,favArray);

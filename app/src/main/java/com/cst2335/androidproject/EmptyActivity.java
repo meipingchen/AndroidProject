@@ -12,6 +12,7 @@ package com.cst2335.androidproject;
  */
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 public class EmptyActivity extends AppCompatActivity {
 
@@ -31,5 +32,7 @@ public class EmptyActivity extends AppCompatActivity {
         ft.setReorderingAllowed(true);
         ft.replace(R.id.frameLayout,fragment);
         ft.commit();
+
     }
+
 }

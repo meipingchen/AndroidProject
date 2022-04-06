@@ -12,12 +12,17 @@ package com.cst2335.androidproject;
  */
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,8 +30,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -41,6 +51,13 @@ public class DetailsFragment extends Fragment {
     String ingredient1;
     String title1;
     String url1;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }
 
     /**
      * to create fragment view of recipe details
@@ -58,6 +75,7 @@ public class DetailsFragment extends Fragment {
         TextView ingredient = view.findViewById(R.id.ingredient2);
         TextView title = view.findViewById(R.id.title2);
         TextView url = view.findViewById(R.id.url2);
+        url.setPaintFlags(url.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         bundle = getArguments();
         //fetch the ingredient,title, url info back from bundle
         ingredient1 = bundle.getString("Ingredient");
@@ -94,8 +112,55 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+        //for toolbar
+        Toolbar detailToolbar = view.findViewById(R.id.detail_toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(detailToolbar);
         return view;
     }
+
+    /**
+     * get the view of toolbar
+     *
+     * @param menu Menu
+     * @return boolean
+     */
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.detail_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    /**
+     * toolbar multiple menu items for switching
+     *
+     * @param item Menuitem
+     * @return booolean
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.back:
+                Intent goToProfile = new Intent(getActivity().getApplication(), MainActivity.class);
+                startActivity(goToProfile);
+                return true;
+            case R.id.help:
+                android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(getActivity()).create();
+                alertDialog.setTitle(getString(R.string.dialogboxTitle));
+                alertDialog.setMessage(getString(R.string.author_full) + "\n" +
+                        getString(R.string.version) + "\n" + getString(R.string.instruction));
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+   
 
     /**
      * to create a database opener
