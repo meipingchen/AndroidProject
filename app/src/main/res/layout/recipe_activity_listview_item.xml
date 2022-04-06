@@ -31,14 +31,5 @@
         android:text="@string/url"
         />
 
-    <Button
-        android:id="@+id/favButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/url"
-        android:visibility="gone"
-        android:textSize="8dp"
-        android:text="@string/like"
-        />
 
 </RelativeLayout>

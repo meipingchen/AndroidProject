@@ -267,7 +267,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    //MyOpenHelper myOpener = new MyOpenHelper( this );
     /**
      * set up the view of the researched result
      */
@@ -283,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          * constructor for instantiation
          *
          * @param context Context
-         * @param data    ListArrayList<MainActivity.Recipe>
+         * @param data    ArrayList<MainActivity.Recipe>
          */
         public RecipeJsonAdapter(Context context, ArrayList<Recipe> data) {
             super();
@@ -342,7 +341,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .findViewById(R.id.title);
                 viewHolder.url = (TextView) convertView
                         .findViewById(R.id.url);
-                viewHolder.like = (Button) convertView.findViewById(R.id.favButton);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
@@ -350,8 +348,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ingredientData = data.get(position).getIngredient();
             titleData = data.get(position).getTitle();
             urlData = data.get(position).getUrl();
-            //String calString = Double.toString(titleData);
-            //String fatString = Double.toString(urlData);
             viewHolder.ingredient.setText("Ingredient: " + ingredientData);
             viewHolder.title.setText("Title: " + titleData);
             viewHolder.url.setText("URL: " + urlData);
@@ -366,7 +362,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     public static class ViewHolder {
         public TextView ingredient, title, url;
-        public Button like;
 
     }
 
@@ -374,10 +369,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * To get the connection to the URL
      */
     public class RecipeJsonData {
-
-        //private String app_id = "d0ea21e0", app_key = "551ca2a90e34d9d00522b6af20718851";
-        //public  String recipe;
-        //private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=" + recipe + "&app_id=" + app_id + "&app_key=" + app_key;
 
         /**
          * to get the data from the Json Object
@@ -424,9 +415,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String title = recipe.getString("label");
                     String url = recipe.getString("url");
                     Recipe newRecipe = new Recipe(ingredient, title, url);
-                    //newRecipe.setIngredient(ingredient);
-                    //newRecipe.setTitle(title);
-                    //newRecipe.setUrl(url);
                     searchData.add(newRecipe);
                 }
 
@@ -441,7 +429,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * MyAsynctask for parse URL
      */
     class MyAsyncTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
-        private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q="  + "&app_id=" + app_id + "&app_key=" + app_key;
+        private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q="  + recipes + "&app_id=" + app_id + "&app_key=" + app_key;
         RecipeJsonData jsonData = new RecipeJsonData();
 
         /**
@@ -461,8 +449,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading = new ProgressDialog(MainActivity.this);
-            loading.setMessage(getString(R.string.search));
             loading.setCancelable(false);
             loading.show();
             ;
@@ -484,7 +470,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 loading.dismiss();
             }
         }
-
 
         /**
          * @param values

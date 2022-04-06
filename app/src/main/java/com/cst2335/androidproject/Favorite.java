@@ -51,9 +51,7 @@ public class Favorite extends AppCompatActivity {
             String urlString = result.getString(url);
 
             favArray.add(new MainActivity.Recipe(ingredientString,titleString,urlString));
-
         }
-
 
         MainActivity.RecipeJsonAdapter favList = new MainActivity.RecipeJsonAdapter(this,favArray);
         ListView favListView = findViewById(R.id.favPage);
@@ -63,9 +61,6 @@ public class Favorite extends AppCompatActivity {
             MainActivity.Recipe whatWasClicked = favArray.get(pos);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Do you want to delete this?")
-
-                    //.setIcon(0)
-
                     //What is the message:
                     .setMessage("The selected row is:"+ pos+"\n"+"The database id is:"+id)
                     //what the Yes button does:
@@ -77,22 +72,11 @@ public class Favorite extends AppCompatActivity {
                     //What the No button does:
                     .setNegativeButton("No", (click, arg) -> { })
 
-                    //An optional third button:
-                    //.setNeutralButton("Maybe", (click, arg) -> {  })
-
-
-                    //You can add extra layout elements:
-                    //.setView(getLayoutInflater().inflate(R.layout.row_layout_receive, null) )
-
                     //Show the dialog
                     .create().show();
 
             return true;
         });
-
-        //printCursor(results,theDatabase.getVersion());
-
     }
-
 
 }

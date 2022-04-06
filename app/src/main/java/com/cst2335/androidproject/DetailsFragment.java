@@ -59,11 +59,11 @@ public class DetailsFragment extends Fragment {
         TextView title = view.findViewById(R.id.title2);
         TextView url = view.findViewById(R.id.url2);
         bundle = getArguments();
-        //fetch the message, id, and boolean info back from bundle
+        //fetch the ingredient,title, url info back from bundle
         ingredient1 = bundle.getString("Ingredient");
         title1 = bundle.getString("title");
         url1 = bundle.getString("url");
-        //locate message, id
+        //locate ingredient, title, url
         ingredient.setText("Ingredient: "+ingredient1);
         title.setText("Title: "+title1);
         url.setText("URL: "+url1);
