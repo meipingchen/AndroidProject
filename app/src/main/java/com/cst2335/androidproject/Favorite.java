@@ -10,13 +10,19 @@ package com.cst2335.androidproject;
  * @author: Qin Li / Jin Zhang / Meiping Chen
  * Purpose: To get favorate recipes data from database
  */
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -79,6 +85,53 @@ public class Favorite extends AppCompatActivity {
 
             return true;
         });
+
+        //for toolbar
+        Toolbar detailToolbar =  findViewById(R.id.detail_toolbar);
+        detailToolbar.setTitle("Favourite List");
+        setSupportActionBar(detailToolbar);
     }
 
+    /**
+     * get the view of toolbar
+     *
+     * @param menu Menu
+     * @return boolean
+     */
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
+        return true;
+    }
+
+    /**
+     * toolbar multiple menu items for switching
+     *
+     * @param item Menuitem
+     * @return booolean
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.back:
+                Intent goToProfile = new Intent(Favorite.this, MainActivity.class);
+                startActivity(goToProfile);
+                return true;
+            case R.id.help:
+                android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Favorite.this).create();
+                alertDialog.setTitle(getString(R.string.dialogboxTitle));
+                alertDialog.setMessage(getString(R.string.author_full) + "\n" +
+                        getString(R.string.version) + "\n" + getString(R.string.instruction));
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 }

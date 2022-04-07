@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String TAG = "RecipeSearchActivity";//print log
 
     private ProgressDialog loading = null;
-    private EditText searchEditText;
     private String app_id = "d0ea21e0", app_key = "551ca2a90e34d9d00522b6af20718851";
     private ArrayList<Recipe> recipes = new ArrayList<>();
     private String jsonUrl = " https://api.edamam.com/api/recipes/v2?type=public&q=";
@@ -80,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         private String ingredient;
         private String title;
         private String url;
-
 
         /**
          * Recipe constructor of 4 parameters
