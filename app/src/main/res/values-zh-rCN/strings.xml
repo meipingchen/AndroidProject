@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">菜谱</string>
-    <string name="title">标题： </string>
-    <string name="author">作者： </string>
-    <string name="version">版本： </string>
+    <string name="title">标题 </string>
+    <string name="author">作者 </string>
+    <string name="version">版本 </string>
     <string name="btn_search">查询 </string>
     <string name="search_hint">输入食物名字</string>
     <string name="open">开</string>

@@ -26,10 +26,11 @@
 
             <EditText
                 android:id="@+id/searchEditTxt"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/btn_search"
-                android:minWidth="32dp"
+                android:layout_marginLeft="20dp"
+                android:minWidth="60dp"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
@@ -39,14 +40,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/search"
                 android:textStyle="italic|bold" />
-
-            <Button
-                android:id="@+id/btn_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/like"
-                android:textStyle="italic|bold"/>
 
         </LinearLayout>
     </LinearLayout>

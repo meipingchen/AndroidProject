@@ -169,15 +169,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         });
 
-        Button likeButton = findViewById(R.id.btn_favorite);
-        /**
-         * click the like button to go to favourite page to show favourite recipe list
-         */
-        likeButton.setOnClickListener( click -> {
-            Intent intent= new Intent(MainActivity.this,Favorite.class);
-            startActivity(intent);
-        });
-
         /**
          * click the recipe search result list to go to recipe details page
          */
@@ -231,7 +222,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.favorite:
-                Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(MainActivity.this,Favorite.class);
+                startActivity(intent);
                 return true;
             case R.id.pizza:
                 Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
