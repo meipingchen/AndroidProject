@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.recipe_activity_search);
 
         ListView myList = findViewById(R.id.searchResult);
+
+        //progressBar
         ProgressBar pbar=findViewById(R.id.pbar);
         pbar.setMax(100);
 
