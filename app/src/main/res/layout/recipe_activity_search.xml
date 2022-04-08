@@ -28,8 +28,8 @@
                 android:id="@+id/searchEditTxt"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/btn_search"
                 android:layout_marginLeft="20dp"
+                android:layout_toLeftOf="@id/btn_search"
                 android:minWidth="60dp"
                 android:minHeight="48dp"
                 tools:ignore="SpeakableTextPresentCheck" />
@@ -41,7 +41,15 @@
                 android:text="@string/search"
                 android:textStyle="italic|bold" />
 
+            <ProgressBar
+                android:id="@+id/pbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:ignore="MissingConstraints" />
+
         </LinearLayout>
+
     </LinearLayout>
 
     <androidx.drawerlayout.widget.DrawerLayout

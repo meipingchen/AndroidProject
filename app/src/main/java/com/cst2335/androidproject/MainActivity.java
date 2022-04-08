@@ -42,6 +42,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -130,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.recipe_activity_search);
 
         ListView myList = findViewById(R.id.searchResult);
+        ProgressBar pbar=findViewById(R.id.pbar);
+        pbar.setMax(100);
 
         EditText searchEditText = findViewById(R.id.searchEditTxt);
 
@@ -145,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          */
         searchButton.setOnClickListener( click -> {
             String inputText = searchEditText.getText().toString();
-
+            pbar.setVisibility(View.VISIBLE);
             SharedPreferences.Editor myEdit=sh.edit();
             myEdit.putString("food name",inputText);
             myEdit.commit();
