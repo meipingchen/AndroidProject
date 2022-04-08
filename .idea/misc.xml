@@ -13,7 +13,11 @@
         <entry key="..\:/Users/chenh/Desktop/computer/level_3/AndroidProject/app/src/main/res/layout/recipesearch.xml" value="0.20018115942028986" />
         <entry key="..\:/Users/chenh/Desktop/computer/level_3/AndroidProject/app/src/main/res/layout/toolbar.xml" value="0.1" />
         <entry key="..\:/Users/chenh/Desktop/computer/level_3/AndroidProject/app/src/main/res/menu/menu.xml" value="0.32222222222222224" />
+        <entry key="..\:/androidProject/app/src/main/res/layout/favorite_list.xml" value="0.2421875" />
+        <entry key="..\:/androidProject/app/src/main/res/layout/recipe_activity_favourite_list.xml" value="0.2421875" />
+        <entry key="..\:/androidProject/app/src/main/res/layout/recipe_activity_listview_item.xml" value="0.6" />
         <entry key="..\:/androidProject/app/src/main/res/layout/recipe_activity_search.xml" value="0.2421875" />
+        <entry key="..\:/androidProject/app/src/main/res/layout/recipe_fragment.xml" value="0.2421875" />
       </map>
     </option>
   </component>
